@@ -3,6 +3,11 @@ import esr from "escape-string-regexp";
 import { basename, extname } from "path";
 import { EOL } from "os";
 
+/**
+ * Convert filename to tuple of base and extension
+ * @param {PathLike} filename Path to filename
+ * @returns {Tuple} base, ext
+ */
 export function sepName(filename) {
     const ext = extname(filename);
     const base = basename(filename, ext);
@@ -48,6 +53,9 @@ export async function parseLog(filePath) {
         };
     }
 
+    // Magic
+    // Reverse log file then split it using rScore regex
+    // After that, reverse again to receive array of testResult
     const rawResult = lines
         .slice(4)
         .reverse()

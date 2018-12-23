@@ -11,5 +11,3 @@ export async function getQueue() {
     // TODO: filter folder
     return filesInQueue.length;
 }
-
-getQueue().then(res => console.log(res));
