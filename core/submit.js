@@ -14,9 +14,8 @@ export async function submitToThemis(code, id) {
     const [base, ext] = sepName(code.originalname);
     const newName = `[${id}][${base}]${ext}`;
     const dest = join(submitFolder, newName);
-    console.log(dest);
 
     copyFile(code.path, dest, err => {
-        if (err) console.log(err);
+        if (err) console.error(err);
     });
 }

@@ -43,7 +43,6 @@ export async function parseLog(filePath) {
 
     const findVerdict = lines[0].match(new RegExp(`${header}: (.*)`, "i"));
     const verdict = Number(findVerdict[1]);
-    // console.log(lines);
     if (isNaN(verdict)) {
         return {
             id: user,
