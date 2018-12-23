@@ -1,6 +1,8 @@
 class status {
     constructor() {
-        this.ready = false;
+        // This will be false by default
+        // And set to true after handshake
+        this.ready = true;
     }
 }
 
