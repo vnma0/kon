@@ -6,13 +6,13 @@ import { readdirSync } from "fs";
 import { uploadForm, submitFolder } from "./config/upload";
 import { checkStatus, validateCode } from "./middleware/validate";
 import { submitToThemis } from "./core/submit";
+import { parseLog } from "./util/parser";
 
 const app = express();
 
 const PORT = 30000;
 
 app.post("/submit", checkStatus, uploadForm, validateCode, (req, res) => {
-    // status.setBusy(2000);
     let code = req.files.code[0];
     const id = req.body.id;
     // Debug
@@ -42,12 +42,9 @@ app.get("/get", (req, res) => {
 
     const logs = readdirSync(logFolder);
     // TODO: Filter
-    const logFile = logs[0];
-
-    res.sendFile(logFile, {
-        root: path.join(logFolder)
-    });
-    // status.setFree();
+    Promise.all(logs.map(file => parseLog(path.join(logFolder, file)))).then(
+        result => res.send(result)
+    );
 });
 
 app.listen(PORT, () => {
