@@ -40,7 +40,12 @@ export async function parseLog(filePath) {
     const verdict = Number(findVerdict[1]);
     // console.log(lines);
     if (isNaN(verdict)) {
-        return { verdict, details: lines.slice(2).join(EOL) };
+        return {
+            id: user,
+            problem: prob,
+            verdict,
+            details: lines.slice(2).join(EOL)
+        };
     }
 
     const rawResult = lines
@@ -65,7 +70,12 @@ export async function parseLog(filePath) {
         testsResult.push({ score, time, details });
     }
 
-    return { verdict, tests: testsResult };
+    return {
+        id: user,
+        problem: prob,
+        verdict,
+        tests: testsResult
+    };
 }
 
 // parseLog("test/[BadGuy][LARES].PAS.log").then(result => console.log(result));
