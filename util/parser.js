@@ -39,7 +39,7 @@ export async function parseLog(filePath) {
 
     const header = esr(`${user}‣${prob}`);
     const rScore = new RegExp(`^${header}‣Test[0-9]{2}: (.*)$`, "im");
-    const rTime = new RegExp("^Thời gian ≈ (.+) giây$", "m");
+    const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
 
     const findVerdict = lines[0].match(new RegExp(`${header}: (.*)`, "i"));
     const verdict = Number(findVerdict[1]);
@@ -57,22 +57,25 @@ export async function parseLog(filePath) {
     // After that, reverse again to receive array of testResult
     const rawResult = lines
         .slice(4)
-        .reverse()
         .join(EOL)
-        .split(rScore)
-        .reverse();
+        .split(rScore);
 
     rawResult.shift();
+    console.log(rawResult);
 
     const testsResult = [];
     while (rawResult.length > 0) {
         let [score, details] = rawResult.splice(0, 2);
         let time = 0;
-        details = details.slice(2);
+        // Skip unused EOL chararcter
+        details = details.slice(EOL.length);
+        // In case run time is included in `details`
         if (rTime.test(details)) {
-            let timeStr = details.split(rTime);
-            time = Number(timeStr[1]);
-            details = timeStr[0];
+            let timeStr = details.split(rTime).filter(s => s !== "");
+            // Set `time` to time
+            time = Number(timeStr[0]);
+            // Remove timeStr from `details`
+            details = timeStr[1];
         }
         testsResult.push({ score, time, details });
     }
