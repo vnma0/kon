@@ -77,6 +77,3 @@ export async function parseLog(filePath) {
         tests: testsResult
     };
 }
-
-// parseLog("test/[BadGuy][LARES].PAS.log").then(result => console.log(result));
-console.log(logName2Data("[BadGuy][LARES].PAS.log"));
