@@ -1,13 +1,13 @@
 import express from "express";
 import { address } from "ip";
 import { join } from "path";
-import { readdirSync, unlink } from "fs";
+import { readdirSync } from "fs";
 
 import { uploadForm, submitFolder } from "./config/upload";
 import { checkStatus, validateCode } from "./middleware/validate";
 import { submitToThemis } from "./core/submit";
 import { parseLog, isFile } from "./util/parser";
-import { cleanTemp } from "./util/clean";
+import { cleanTemp, unlinkAsync } from "./util/clean";
 
 const app = express();
 
@@ -70,8 +70,8 @@ app.get("/get", (req, res) => {
     // Asynchronously parse all log file then send it back as response
     Promise.all(promiseLogs).then(result => res.send(result));
 
-    // Delete sent logs
-    Promise.all(fileList.map(unlink));
+    // TODO: Delete sent logs
+    Promise.all(fileList.map(unlinkAsync)).catch(console.error);
 });
 
 /**

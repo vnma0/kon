@@ -1,6 +1,7 @@
-import { readdirSync, unlinkSync } from "fs";
-import { submitFolder, uploadFolder } from "../config/upload";
+import { readdirSync, unlink } from "fs";
 import { join } from "path";
+
+import { submitFolder, uploadFolder } from "../config/upload";
 
 /**
  * Empty a folder by deleting all files
@@ -9,7 +10,8 @@ import { join } from "path";
  */
 function cleanFolder(path) {
     const files = readdirSync(path);
-    files.map(file => unlinkSync(join(path, file)));
+    const promise = files.map(file => join(path, file)).map(unlinkAsync);
+    Promise.all(promise);
 }
 
 /**
@@ -24,4 +26,13 @@ export function cleanLog() {
  */
 export function cleanTemp() {
     cleanFolder(uploadFolder);
+}
+
+export function unlinkAsync(path) {
+    return new Promise((resolve, reject) => {
+        unlink(path, err => {
+            if (err) reject(err);
+            else resolve();
+        });
+    });
 }
