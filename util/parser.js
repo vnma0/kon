@@ -1,7 +1,7 @@
-import { readFileSync } from "fs";
+import { readFile, lstatSync } from "fs";
 import esr from "escape-string-regexp";
 import { basename, extname } from "path";
-import { EOL } from "os";
+import { promisify } from "util";
 
 /**
  * Convert filename to tuple of base and extension
@@ -33,7 +33,9 @@ function logName2Data(filename) {
  * @returns {Object} Contains submission result
  */
 export async function parseLog(filePath) {
-    const file = readFileSync(filePath, "utf8");
+    const EOL = "\r\n";
+    const readFileAsync = promisify(readFile);
+    const file = await readFileAsync(filePath, "utf8");
     const lines = file.split(EOL);
     const [user, prob] = logName2Data(basename(filePath));
 
@@ -61,7 +63,6 @@ export async function parseLog(filePath) {
         .split(rScore);
 
     rawResult.shift();
-    console.log(rawResult);
 
     const testsResult = [];
     while (rawResult.length > 0) {
@@ -86,4 +87,9 @@ export async function parseLog(filePath) {
         verdict,
         tests: testsResult
     };
+}
+
+export function isFile(filePath) {
+    const stat = lstatSync(filePath);
+    return stat.isFile();
 }
