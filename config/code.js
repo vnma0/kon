@@ -4,7 +4,9 @@
  */
 export const acceptMIME = [
     "text/x-c",
-    "text/x-pascal"
+    "text/x-pascal",
+    "text/x-java-source",
+    "text/x-script.python"
     // More will be availaable
 ];
 
