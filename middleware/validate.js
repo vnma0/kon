@@ -26,7 +26,8 @@ export function checkStatus(req, res, next) {
  */
 export function validateCode(req, res, next) {
     const files = req.files;
-    if (files.code === undefined) res.sendStatus(400);
+    // Check for invalid code
+    if (!files.code) res.sendStatus(400);
     else {
         const code = files.code[0];
         if (!checkFileSize(code)) res.sendStatus(413);
