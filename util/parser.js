@@ -33,6 +33,8 @@ function logName2Data(filename) {
  * @returns {Object} Contains submission result
  */
 export async function parseLog(filePath) {
+    if (!isFile(filePath)) return null;
+
     const EOL = "\r\n";
     const readFileAsync = promisify(readFile);
     const file = await readFileAsync(filePath, "utf8");
