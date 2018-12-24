@@ -2,6 +2,7 @@ import express from "express";
 import { address } from "ip";
 import { join } from "path";
 import { readdirSync } from "fs";
+import helmet from "helmet";
 
 import { uploadForm, submitFolder } from "./config/upload";
 import { checkStatus, validateCode } from "./middleware/validate";
@@ -12,6 +13,8 @@ import { cleanTemp, unlinkAsync } from "./util/clean";
 const app = express();
 
 const PORT = 30000;
+
+app.use(helmet());
 
 /**
  * /submit - /POST
