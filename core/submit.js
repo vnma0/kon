@@ -1,7 +1,6 @@
 import { copyFile } from "fs";
 import { submitFolder } from "../config/upload";
-import { join, basename, extname } from "path";
-import { cleanLog } from "../util/clean";
+import { join } from "path";
 import { sepName } from "../util/parser";
 
 /**

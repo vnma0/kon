@@ -1,7 +1,7 @@
 import express from "express";
 import { address } from "ip";
 import { join } from "path";
-import { readdirSync, lstatSync, unlink } from "fs";
+import { readdirSync, unlink } from "fs";
 
 import { uploadForm, submitFolder } from "./config/upload";
 import { checkStatus, validateCode } from "./middleware/validate";
