@@ -1,7 +1,7 @@
 import express from "express";
 import { address } from "ip";
 import { join } from "path";
-import { readdirSync, lstatSync } from "fs";
+import { readdirSync, lstatSync, unlink } from "fs";
 
 import { uploadForm, submitFolder } from "./config/upload";
 import { checkStatus, validateCode } from "./middleware/validate";
@@ -50,7 +50,7 @@ app.get("/check", checkStatus, (req, res) => {
 /**
  * /get - /GET
  * @description Return array's of log from Themis
- * This route use parseLog - async function, which may overtime
+ * This route use parseLog - async function, which enhance run time
  * TODO: enhance parseLog usage
  */
 app.get("/get", (req, res) => {
@@ -60,15 +60,18 @@ app.get("/get", (req, res) => {
     // Folder contain log
     const logFolder = join(__dirname, submitFolder, "Logs");
 
-    // Filter file only
     const fileList = readdirSync(logFolder)
-        .filter(file => file)
-        .map(file => join(logFolder, file))
-        .filter(isFile);
+        .filter(file => file) // Filter empty string
+        .map(file => join(logFolder, file)) // Convert into fullpath
+        .filter(isFile); // Filter files only
+
+    // Convert into Promises
     const promiseLogs = fileList.map(parseLog);
+    // Asynchronously parse all log file then send it back as response
     Promise.all(promiseLogs).then(result => res.send(result));
 
-    // Asynchronously read all log file then send it back to Wafter's request
+    // Delete sent logs
+    Promise.all(fileList.map(unlink));
 });
 
 /**
