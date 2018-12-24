@@ -1,12 +1,12 @@
 import express from "express";
-import ip from "ip";
+import { address } from "ip";
 import { join } from "path";
-import { readdirSync } from "fs";
+import { readdirSync, lstatSync } from "fs";
 
 import { uploadForm, submitFolder } from "./config/upload";
 import { checkStatus, validateCode } from "./middleware/validate";
 import { submitToThemis } from "./core/submit";
-import { parseLog } from "./util/parser";
+import { parseLog, isFile } from "./util/parser";
 import { cleanTemp } from "./util/clean";
 
 const app = express();
@@ -24,7 +24,7 @@ app.post("/submit", checkStatus, uploadForm, validateCode, (req, res) => {
     console.log(`[${req.ip}] /submit "${code.originalname}" (${id})"`);
 
     // Verify id
-    if (id === "") {
+    if (!id) {
         // Response: 400 Bad Request
         res.sendStatus(400);
         return;
@@ -37,7 +37,7 @@ app.post("/submit", checkStatus, uploadForm, validateCode, (req, res) => {
 
 /**
  * /check - /GET
- * Check if server has done handshake.
+ * @description Check if server has done handshake.
  */
 app.get("/check", checkStatus, (req, res) => {
     // Verbose
@@ -49,7 +49,7 @@ app.get("/check", checkStatus, (req, res) => {
 
 /**
  * /get - /GET
- * Return array's of log from Themis
+ * @description Return array's of log from Themis
  * This route use parseLog - async function, which may overtime
  * TODO: enhance parseLog usage
  */
@@ -60,24 +60,26 @@ app.get("/get", (req, res) => {
     // Folder contain log
     const logFolder = join(__dirname, submitFolder, "Logs");
 
-    const logs = readdirSync(logFolder);
-    // TODO: Filter files only using fs.stat() or similar
+    // Filter file only
+    const fileList = readdirSync(logFolder)
+        .filter(file => file)
+        .map(file => join(logFolder, file))
+        .filter(isFile);
+    const promiseLogs = fileList.map(parseLog);
+    Promise.all(promiseLogs).then(result => res.send(result));
 
     // Asynchronously read all log file then send it back to Wafter's request
-    Promise.all(logs.map(file => parseLog(join(logFolder, file)))).then(
-        result => res.send(result)
-    );
 });
 
 /**
  * Start server
- * This will start listen at port PORT
+ * @description This will start listen at port PORT
  */
 app.listen(PORT, () => {
     // TODO: clean everything before start
     cleanTemp();
     // Verbose
-    console.log(`Server is listening on ${ip.address()} at ${PORT}`);
+    console.log(`Server is listening on ${address()} at ${PORT}`);
 });
 
 // TODO: clean code
