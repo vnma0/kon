@@ -5,25 +5,52 @@ import { readdirSync } from "fs";
 import helmet from "helmet";
 import morgan from "morgan";
 
-import { submitFolder } from "./config/folder";
-import { uploadForm } from "./middleware/upload";
-import { checkStatus, validateCode } from "./middleware/validate";
+import { submitFolder, cwd } from "./config/folder";
+import { formUpload, taskUpload } from "./middleware/upload";
+import {
+    checkStatus,
+    checkFirstTime,
+    validateCode
+} from "./middleware/validate";
 import { submitToThemis } from "./core/submit";
 import { parseLog, isFile } from "./util/parser";
 import { cleanTemp, unlinkAsync } from "./util/clean";
+import status from "./core/status";
+import { extractTasks } from "./core/setup";
 
 const app = express();
 
 const PORT = 30000;
 
 app.use(helmet());
+// Safety first
 app.use(morgan("tiny"));
+
+/**
+ * /task - /POST
+ * @description Recieve task from Wafter. This route run for once only
+ */
+app.post("/task", checkFirstTime, taskUpload, (req, res) => {
+    const taskZipPath = req.file.path;
+    extractTasks(taskZipPath).then(() => {
+        status.setReady();
+        res.sendStatus(200);
+    });
+});
+
+/**
+ * /check - /GET
+ * @description Check if server has done handshake.
+ */
+app.get("/check", checkStatus, (req, res) => {
+    res.sendStatus(200);
+});
 
 /**
  * /submit - /POST
  * @description Receive source code from Wafter and then move it to Themis
  */
-app.post("/submit", checkStatus, uploadForm, validateCode, (req, res) => {
+app.post("/submit", checkStatus, formUpload, validateCode, (req, res) => {
     const code = req.files.code[0];
     const id = req.body.id;
 
@@ -40,18 +67,6 @@ app.post("/submit", checkStatus, uploadForm, validateCode, (req, res) => {
 });
 
 /**
- * /check - /GET
- * @description Check if server has done handshake.
- */
-app.get("/check", checkStatus, (req, res) => {
-    // Verbose
-    console.log(`[${req.ip}] /check`);
-
-    // Response: 200 OK
-    res.sendStatus(200);
-});
-
-/**
  * /get - /GET
  * @description Return array's of log from Themis
  * This route use parseLog - async function, which enhance run time
@@ -59,7 +74,7 @@ app.get("/check", checkStatus, (req, res) => {
  */
 app.get("/get", checkStatus, (req, res) => {
     // Folder contain log
-    const logFolder = join(__dirname, submitFolder, "Logs");
+    const logFolder = join(cwd, submitFolder, "Logs");
 
     const fileList = readdirSync(logFolder)
         .filter(file => file) // Filter empty string
