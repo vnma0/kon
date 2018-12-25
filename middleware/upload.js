@@ -3,11 +3,14 @@ import { uploadFolder } from "../config/folder";
 import { taskSizeLimit, codeSizeLimit } from "../config/code";
 
 /**
- * Form structure which is used to receives Wafter request
- * Do not set this to multer().any() !!!!
- * See https://github.com/expressjs/multer for details
+ * receive task from Wafter
+ * If payload is too large, send status 413
+ * If there's other error, send status 400
+ * Else, next()
+ * @param {Request} req Express request object
+ * @param {Response} res Express response object
+ * @param {callback} next Express next middleware function
  */
-
 export function taskUpload(req, res, next) {
     const task = multer({
         dest: uploadFolder,
@@ -31,6 +34,15 @@ export function taskUpload(req, res, next) {
     });
 }
 
+/**
+ * receive submission from Wafter
+ * If payload is too large, send status 413
+ * If there's other error, send status 400
+ * Else, next()
+ * @param {Request} req Express request object
+ * @param {Response} res Express response object
+ * @param {callback} next Express next middleware function
+ */
 export function formUpload(req, res, next) {
     const form = multer({
         dest: uploadFolder,
