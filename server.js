@@ -3,6 +3,7 @@ import { address } from "ip";
 import { join } from "path";
 import { readdirSync } from "fs";
 import helmet from "helmet";
+import morgan from "morgan";
 
 import { uploadForm, submitFolder } from "./config/upload";
 import { checkStatus, validateCode } from "./middleware/validate";
@@ -15,6 +16,7 @@ const app = express();
 const PORT = 30000;
 
 app.use(helmet());
+app.use(morgan("tiny"));
 
 /**
  * /submit - /POST
@@ -23,8 +25,6 @@ app.use(helmet());
 app.post("/submit", checkStatus, uploadForm, validateCode, (req, res) => {
     const code = req.files.code[0];
     const id = req.body.id;
-    // Verbose
-    console.log(`[${req.ip}] /submit "${code.originalname}" (${id})"`);
 
     // Verify id
     if (!id) {
@@ -56,10 +56,7 @@ app.get("/check", checkStatus, (req, res) => {
  * This route use parseLog - async function, which enhance run time
  * TODO: enhance parseLog usage
  */
-app.get("/get", (req, res) => {
-    // Verbose
-    console.log(`[${req.ip}] /get`);
-
+app.get("/get", checkStatus, (req, res) => {
     // Folder contain log
     const logFolder = join(__dirname, submitFolder, "Logs");
 
