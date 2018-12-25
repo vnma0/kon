@@ -1,15 +1,5 @@
 import multer from "multer";
-
-/**
- * Folder contains log result after submit code
- * This is where /get will take log and send back to Wafter
- */
-export const submitFolder = "submit";
-
-/**
- * Folder contains upload files where code is uploaded to
- */
-export const uploadFolder = "upload";
+import { uploadFolder, taskFolder } from "../config/folder";
 /**
  * Form structure which is used to receives Wafter request
  * Do not set this to multer().any() !!!!
@@ -19,3 +9,8 @@ export const uploadForm = multer({ dest: uploadFolder }).fields([
     { name: "code", maxCount: 1 },
     { name: "id", maxCount: 1 }
 ]);
+
+export const taskUpload = multer({
+    dest: taskFolder,
+    limits: { fileSize: 25000000 }
+}).single("task");

@@ -5,7 +5,8 @@ import { readdirSync } from "fs";
 import helmet from "helmet";
 import morgan from "morgan";
 
-import { uploadForm, submitFolder } from "./config/upload";
+import { submitFolder } from "./config/folder";
+import { uploadForm } from "./middleware/upload";
 import { checkStatus, validateCode } from "./middleware/validate";
 import { submitToThemis } from "./core/submit";
 import { parseLog, isFile } from "./util/parser";

@@ -1,5 +1,5 @@
 import { copyFile } from "fs";
-import { submitFolder } from "../config/upload";
+import { submitFolder } from "../config/folder";
 import { join } from "path";
 import { sepName } from "../util/parser";
 

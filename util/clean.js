@@ -1,7 +1,7 @@
 import { readdirSync, unlink } from "fs";
 import { join } from "path";
 
-import { submitFolder, uploadFolder } from "../config/upload";
+import { submitFolder, uploadFolder } from "../config/folder";
 
 /**
  * Empty a folder by deleting all files
