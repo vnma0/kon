@@ -44,7 +44,7 @@ export function validateCode(req, res, next) {
     if (!files.code) res.sendStatus(400);
     else {
         const code = files.code[0];
-        if (!checkFileType(code)) res.sendStatus(415);
+        if (!checkCodeType(code)) res.sendStatus(415);
         else next();
     }
 }
@@ -53,6 +53,22 @@ export function validateCode(req, res, next) {
  * Check if given file is a valid source code via MIME
  * @param {Object} file source code blob
  */
-function checkFileType(file) {
+function checkCodeType(file) {
     return acceptMIME.indexOf(file.mimetype) !== -1;
+}
+
+export function validateTask(req, res, next) {
+    const task = req.file;
+
+    console.log(task);
+    if (checkTaskType(task)) next();
+    else res.sendStatus(415);
+}
+
+/**
+ * Check if given task file is a vaild zip
+ * @param {Object} file zip file blob
+ */
+function checkTaskType(file) {
+    return file.mimetype === "application/zip";
 }
