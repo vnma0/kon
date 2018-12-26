@@ -7,11 +7,7 @@ import morgan from "morgan";
 
 import { submitFolder, cwd } from "./config/folder";
 import { formUpload, taskUpload } from "./middleware/upload";
-import {
-    checkStatus,
-    checkFirstTime,
-    validateCode
-} from "./middleware/validate";
+import { checkStatus, checkInitial, validateCode } from "./middleware/validate";
 import { submitToThemis } from "./core/submit";
 import { parseLog, isFile } from "./util/parser";
 import { cleanTemp, unlinkAsync } from "./util/clean";
@@ -30,7 +26,7 @@ app.use(morgan("tiny"));
  * /task - /POST
  * @description Recieve task from Wafter. This route run for once only
  */
-app.post("/task", checkFirstTime, taskUpload, (req, res) => {
+app.post("/task", checkInitial, taskUpload, (req, res) => {
     const taskZipPath = req.file.path;
     extractTasks(taskZipPath).then(() => {
         status.setReady();

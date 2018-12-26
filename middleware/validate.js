@@ -22,7 +22,7 @@ export function checkStatus(req, res, next) {
  * @param {Response} res Express response object
  * @param {callback} next Express next middleware function
  */
-export function checkFirstTime(req, res, next) {
+export function checkInitial(req, res, next) {
     if (status.ready) res.sendStatus(403);
     else next();
 }
