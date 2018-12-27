@@ -54,6 +54,71 @@ function chunkArray(array, chunk_size) {
 }
 
 const EOL = "\r\n";
+
+/**
+ * Filter time from test
+ * ({ test, time } = filterTestTime(test, time));
+ * @param {String} test Test's details line
+ * @param {Number} time Pass by reference
+ */
+function filterTestTime(test, time) {
+    const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
+    if (rTime.test(test)) {
+        let timeStr = test.split(rTime).filter((s) => s !== "");
+        // Set `time` to time
+        time = Number(timeStr[0]);
+        // Remove timeStr from `details`
+        test = timeStr[1];
+    }
+    return { test, time };
+}
+
+/**
+ * Parse rawDeatails into verdicts and details
+ * @param {Array} rawDetails
+ * @returns verdicts and details
+ */
+function parseTestVerdict(rawDetails) {
+    // Filter Exit code
+    const rExitCode = new RegExp(esr("(Hexadecimal: ") + "(.+)" + esr(")"));
+
+    // TODO: Add "Chạy quá bộ nhớ"
+    const verdicts = {
+        "Kết quả khớp đáp án!": "AC",
+        "Kết quả KHÁC đáp án!": "WA",
+        "Chạy quá thời gian": "TLE",
+        "Chạy sinh lỗi": "RTE"
+    };
+
+    const verdict = verdicts[rawDetails[0]] || null;
+    const details =
+        verdict === "RTE"
+            ? "Exit code: " + rawDetails[1].match(rExitCode)[1]
+            : null;
+
+    return { verdict, details };
+}
+
+/**
+ * Parse rawTestCase into testCase object
+ * @param {Array} rawTestCase
+ * @returns parsedTestCase
+ */
+function parseTestCase(rawTestCase) {
+    let [score, test] = rawTestCase;
+    score = Number(score);
+    let time = 0;
+    // Skip unused EOL chararcter
+    test = test.slice(EOL.length);
+    // In case run time is included in `details`
+    ({ test, time } = filterTestTime(test, time));
+    // Parse verdict and details if there is
+    const { verdict, details } = parseTestVerdict(test.split(EOL));
+
+    if (details) return { score, time, verdict, details };
+    else return { score, time, verdict };
+}
+
 /**
  * Parse log and return as an Object
  * @param {PathLike} filePath Path to log file
@@ -100,68 +165,4 @@ export async function parseLog(filePath) {
         finalScore,
         tests: rawTestSuite.map(parseTestCase)
     };
-}
-
-/**
- * Parse rawTestCase into testCase object
- * @param {Array} rawTestCase
- * @returns parsedTestCase
- */
-function parseTestCase(rawTestCase) {
-    let [score, test] = rawTestCase;
-    score = Number(score);
-    let time = 0;
-    // Skip unused EOL chararcter
-    test = test.slice(EOL.length);
-    // In case run time is included in `details`
-    ({ test, time } = filterTestTime(test, time));
-    // Parse verdict and details if there is
-    const { verdict, details } = parseTestVerdict(test.split(EOL));
-
-    if (details) return { score, time, verdict, details };
-    else return { score, time, verdict };
-}
-
-/**
- * Filter time from test
- * ({ test, time } = filterTestTime(test, time));
- * @param {String} test Test's details line
- * @param {Number} time Pass by reference
- */
-function filterTestTime(test, time) {
-    const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
-    if (rTime.test(test)) {
-        let timeStr = test.split(rTime).filter((s) => s !== "");
-        // Set `time` to time
-        time = Number(timeStr[0]);
-        // Remove timeStr from `details`
-        test = timeStr[1];
-    }
-    return { test, time };
-}
-
-/**
- * Parse rawDeatails into verdicts and details
- * @param {Array} rawDetails
- * @returns verdicts and details
- */
-function parseTestVerdict(rawDetails) {
-    // Filter Exit code
-    const rExitCode = new RegExp(esr("(Hexadecimal: ") + "(.+)" + esr(")"));
-
-    // TODO: Add "Chạy quá bộ nhớ"
-    const verdicts = {
-        "Kết quả khớp đáp án!": "AC",
-        "Kết quả KHÁC đáp án!": "WA",
-        "Chạy quá thời gian": "TLE",
-        "Chạy sinh lỗi": "RTE"
-    };
-
-    const verdict = verdicts[rawDetails[0]] || null;
-    const details =
-        verdict === "RTE"
-            ? "Exit code: " + rawDetails[1].match(rExitCode)[1]
-            : null;
-
-    return { verdict, details };
 }
