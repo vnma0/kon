@@ -59,6 +59,7 @@ export async function parseLog(filePath) {
     const findVerdict = lines[0].match(rVerdict);
     const finalScore = Number(findVerdict[1]);
 
+    // CE (Compiler Error) case
     if (isNaN(finalScore)) {
         return {
             id: user,
@@ -68,11 +69,12 @@ export async function parseLog(filePath) {
         };
     }
 
+    // Convert log into array of testSuite, additionally with score
     const rawTestSuite = lines
         .slice(4)
         .join(EOL)
-        .split(rScore);
-    rawTestSuite.shift();
+        .split(rScore)
+        .filter(s => s);
 
     return {
         id: user,
@@ -90,28 +92,39 @@ export async function parseLog(filePath) {
 function parseTestSuite(rawTestSuite) {
     const testsResult = [];
     while (rawTestSuite.length > 0) {
+        // Extract
         let [score, test] = rawTestSuite.splice(0, 2);
         score = Number(score);
         let time = 0;
         // Skip unused EOL chararcter
         test = test.slice(EOL.length);
         // In case run time is included in `details`
-        const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
-        if (rTime.test(test)) {
-            let timeStr = test.split(rTime).filter(s => s !== "");
-            // Set `time` to time
-            time = Number(timeStr[0]);
-            // Remove timeStr from `details`
-            test = timeStr[1];
-        }
-        test = test.split(EOL);
-
-        const { verdict, details } = parseTestVerdict(test);
+        ({ test, time } = filterTestTime(test, time));
+        // Parse verdict and details if there is
+        const { verdict, details } = parseTestVerdict(test.split(EOL));
 
         if (details) testsResult.push({ score, time, verdict, details });
         else testsResult.push({ score, time, verdict });
     }
     return testsResult;
+}
+
+/**
+ * Filter time from test
+ * ({ test, time } = filterTestTime(test, time));
+ * @param {String} test Test's details line
+ * @param {Number} time Pass by reference
+ */
+function filterTestTime(test, time) {
+    const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
+    if (rTime.test(test)) {
+        let timeStr = test.split(rTime).filter(s => s !== "");
+        // Set `time` to time
+        time = Number(timeStr[0]);
+        // Remove timeStr from `details`
+        test = timeStr[1];
+    }
+    return { test, time };
 }
 
 /**
