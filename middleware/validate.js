@@ -40,7 +40,6 @@ export function checkInitial(req, res, next) {
 export function validateCode(req, res, next) {
     const files = req.files;
     // Check for invalid code
-    console.log(files);
     if (!files.code) res.sendStatus(400);
     else {
         const code = files.code[0];
@@ -58,11 +57,13 @@ function checkCodeType(file) {
 }
 
 export function validateTask(req, res, next) {
+    // Check for invalid task file
     const task = req.file;
-
-    console.log(task);
-    if (checkTaskType(task)) next();
-    else res.sendStatus(415);
+    if (!task) res.sendStatus(400);
+    else {
+        if (checkTaskType(task)) next();
+        else res.sendStatus(415);
+    }
 }
 
 /**
