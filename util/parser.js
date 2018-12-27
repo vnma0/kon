@@ -141,7 +141,7 @@ function filterTestTime(test, time) {
 }
 
 /**
- * Parse rawTestSuite into testSuite object
+ * Parse rawDeatails into verdicts and details
  * @param {Array} rawDetails
  * @returns verdicts and details
  */
