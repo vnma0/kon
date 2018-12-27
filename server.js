@@ -96,7 +96,7 @@ app.get("/get", checkStatus, (req, res) => {
  * @description This will start listen at port PORT
  */
 app.listen(PORT, () => {
-    // TODO: clean everything before start
+    // TODO: clean everything before start and prepare directory
     cleanTemp();
     // Verbose
     console.log(`Server is listening on ${address()} at ${PORT}`);
