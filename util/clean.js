@@ -4,6 +4,19 @@ import { join } from "path";
 import { submitFolder, uploadFolder } from "../config/folder";
 
 /**
+ * Asynchronous wrapper of unlink
+ * @param {PathLike} path path to file
+ */
+export function unlinkAsync(path) {
+    return new Promise((resolve, reject) => {
+        unlink(path, err => {
+            if (err) reject(err);
+            else resolve();
+        });
+    });
+}
+
+/**
  * Empty a folder by deleting all files
  * This function won't delete any folder inside given folder
  * @param {PathLike} path path to folder need cleaning
@@ -26,13 +39,4 @@ export function cleanLog() {
  */
 export function cleanTemp() {
     cleanFolder(uploadFolder);
-}
-
-export function unlinkAsync(path) {
-    return new Promise((resolve, reject) => {
-        unlink(path, err => {
-            if (err) reject(err);
-            else resolve();
-        });
-    });
 }

@@ -28,6 +28,14 @@ export function checkInitial(req, res, next) {
 }
 
 /**
+ * Check if given file is a valid source code via MIME
+ * @param {Object} file source code blob
+ */
+function checkCodeType(file) {
+    return acceptMIME.indexOf(file.mimetype) !== -1;
+}
+
+/**
  * Check if recieved file is a valid source code
  * If the received file is empty, send status 400
  * Else if file's size is over limit, send status 413
@@ -49,11 +57,11 @@ export function validateCode(req, res, next) {
 }
 
 /**
- * Check if given file is a valid source code via MIME
- * @param {Object} file source code blob
+ * Check if given task file is a vaild zip
+ * @param {Object} file zip file blob
  */
-function checkCodeType(file) {
-    return acceptMIME.indexOf(file.mimetype) !== -1;
+function checkTaskType(file) {
+    return file.mimetype === "application/zip";
 }
 
 export function validateTask(req, res, next) {
@@ -64,12 +72,4 @@ export function validateTask(req, res, next) {
         if (checkTaskType(task)) next();
         else res.sendStatus(415);
     }
-}
-
-/**
- * Check if given task file is a vaild zip
- * @param {Object} file zip file blob
- */
-function checkTaskType(file) {
-    return file.mimetype === "application/zip";
 }
