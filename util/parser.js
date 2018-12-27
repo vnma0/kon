@@ -133,8 +133,8 @@ export async function parseLog(filePath) {
     const lines = file.split(EOL);
 
     const header = esr(`${user}‣${prob}`);
-    const rVerdict = new RegExp(`${header}: (.*)`, "i");
-    const rScore = new RegExp(`^${header}‣Test[0-9]{2}: (.*)$`, "im");
+    const rVerdict = new RegExp(header + ": (.*)", "i");
+    const rScore = new RegExp(header + "‣Test[0-9]{2}: (.*)", "i");
 
     const findVerdict = lines[0].match(rVerdict);
     const finalScore = Number(findVerdict[1]);
