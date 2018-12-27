@@ -6,7 +6,7 @@ import { cwd } from "../config/folder";
  * @param {PathLike} filePath path to zip file
  */
 export async function extractTasks(filePath) {
-    extract(filePath, { dir: cwd }, err => {
+    extract(filePath, { dir: cwd }, (err) => {
         if (err) throw err;
     });
 }

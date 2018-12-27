@@ -1,4 +1,4 @@
-class status {
+class Status {
     constructor() {
         this.ready = false;
     }
@@ -8,4 +8,4 @@ class status {
     }
 }
 
-export default new status();
+export default new Status();

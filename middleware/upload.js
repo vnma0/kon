@@ -22,7 +22,7 @@ export function taskUpload(req, res, next) {
         }
     }).single("task");
 
-    task(req, res, err => {
+    task(req, res, (err) => {
         if (
             err instanceof multer.MulterError &&
             err.code === "LIMIT_FILE_SIZE"
@@ -54,7 +54,7 @@ export function formUpload(req, res, next) {
         }
     }).fields([{ name: "code", maxCount: 1 }, { name: "id", maxCount: 1 }]);
 
-    form(req, res, err => {
+    form(req, res, (err) => {
         if (
             err instanceof multer.MulterError &&
             err.code === "LIMIT_FILE_SIZE"

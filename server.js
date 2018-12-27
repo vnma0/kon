@@ -16,7 +16,7 @@ import {
 import { submitToThemis } from "./core/submit";
 import { parseLog, isFile } from "./util/parser";
 import { cleanTemp, unlinkAsync } from "./util/clean";
-import status from "./core/status";
+import Status from "./core/status";
 import { extractTasks } from "./core/setup";
 
 const app = express();
@@ -34,7 +34,7 @@ app.use(morgan("tiny"));
 app.post("/task", checkInitial, taskUpload, validateTask, (req, res) => {
     const taskZipPath = req.file.path;
     extractTasks(taskZipPath).then(() => {
-        status.setReady();
+        Status.setReady();
         res.sendStatus(200);
     });
 });
@@ -78,14 +78,14 @@ app.get("/get", checkStatus, (req, res) => {
     const logFolder = join(cwd, submitFolder, "Logs");
 
     const fileList = readdirSync(logFolder)
-        .filter(file => file) // Filter empty string
-        .map(file => join(logFolder, file)) // Convert into fullpath
+        .filter((file) => file) // Filter empty string
+        .map((file) => join(logFolder, file)) // Convert into fullpath
         .filter(isFile); // Filter files only
 
     // Convert into Promises
     const promiseLogs = fileList.map(parseLog);
     // Asynchronously parse all log file then send it back as response
-    Promise.all(promiseLogs).then(result => res.send(result));
+    Promise.all(promiseLogs).then((result) => res.send(result));
 
     // TODO: Delete sent logs
     Promise.all(fileList.map(unlinkAsync)).catch(console.error);
