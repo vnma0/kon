@@ -27,6 +27,7 @@ function logName2Data(filename) {
 
     return data;
 }
+
 /**
  * Parse log and return as an Object
  * @param {PathLike} filePath Path to log file
@@ -44,15 +45,17 @@ export async function parseLog(filePath) {
     const header = esr(`${user}‣${prob}`);
     const rScore = new RegExp(`^${header}‣Test[0-9]{2}: (.*)$`, "im");
     const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
+    const rExitCode = new RegExp(esr("(Hexadecimal: ") + "(.+)" + esr(")"));
 
     const findVerdict = lines[0].match(new RegExp(`${header}: (.*)`, "i"));
-    const verdict = Number(findVerdict[1]);
-    if (isNaN(verdict)) {
+    const finalScore = Number(findVerdict[1]);
+
+    if (isNaN(finalScore)) {
         return {
             id: user,
             problem: prob,
-            verdict,
-            details: lines.slice(2).join(EOL)
+            finalScore,
+            details: lines.slice(3).join(EOL)
         };
     }
 
@@ -68,25 +71,48 @@ export async function parseLog(filePath) {
 
     const testsResult = [];
     while (rawResult.length > 0) {
-        let [score, details] = rawResult.splice(0, 2);
+        let [score, test] = rawResult.splice(0, 2);
+        score = Number(score);
         let time = 0;
         // Skip unused EOL chararcter
-        details = details.slice(EOL.length);
+        test = test.slice(EOL.length);
+        let verdict = null;
+        let details = null;
         // In case run time is included in `details`
-        if (rTime.test(details)) {
-            let timeStr = details.split(rTime).filter(s => s !== "");
+        if (rTime.test(test)) {
+            let timeStr = test.split(rTime).filter(s => s !== "");
             // Set `time` to time
             time = Number(timeStr[0]);
             // Remove timeStr from `details`
-            details = timeStr[1];
+
+            test = timeStr[1];
         }
-        testsResult.push({ score, time, details });
+
+        test = test.split(EOL);
+
+        switch (test[0]) {
+            case "Kết quả khớp đáp án!":
+                verdict = "AC";
+                break;
+            case "Kết quả KHÁC đáp án!":
+                verdict = "WA";
+                break;
+            case "Chạy quá thời gian":
+                verdict = "TLE";
+                break;
+            case "Chạy sinh lỗi":
+                verdict = "RTE";
+                details = "Exit code: " + test[1].match(rExitCode)[1];
+                break;
+        }
+        if (details) testsResult.push({ score, time, verdict, details });
+        else testsResult.push({ score, time, verdict });
     }
 
     return {
         id: user,
         problem: prob,
-        verdict,
+        finalScore,
         tests: testsResult
     };
 }
