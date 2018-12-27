@@ -32,10 +32,25 @@ function logName2Data(filename) {
     // TODO: Sanitize filename
     const data = filename
         .split(/\[(.+?)\]/)
-        .filter(s => s !== "")
+        .filter((s) => s !== "")
         .slice(0, 2);
 
     return data;
+}
+
+/**
+ * Chunk array into array of subarrays
+ * @param {Array} array
+ * @param {Number} chunk_size
+ */
+function chunkArray(array, chunk_size) {
+    var results = [];
+
+    while (array.length) {
+        results.push(array.splice(0, chunk_size));
+    }
+
+    return results;
 }
 
 const EOL = "\r\n";
@@ -70,43 +85,41 @@ export async function parseLog(filePath) {
     }
 
     // Convert log into array of testSuite, additionally with score
-    const rawTestSuite = lines
-        .slice(4)
-        .join(EOL)
-        .split(rScore)
-        .filter(s => s);
+    const rawTestSuite = chunkArray(
+        lines
+            .slice(4)
+            .join(EOL)
+            .split(rScore)
+            .filter((s) => s),
+        2
+    );
 
     return {
         id: user,
         problem: prob,
         finalScore,
-        tests: parseTestSuite(rawTestSuite)
+        tests: rawTestSuite.map(parseTestCase)
     };
 }
 
 /**
- * Parse rawTestSuite into testSuite object
- * @param {Array} rawTestSuite Array of rawTestCase
- * @returns Array of testCase
+ * Parse rawTestCase into testCase object
+ * @param {Array} rawTestCase
+ * @returns parsedTestCase
  */
-function parseTestSuite(rawTestSuite) {
-    const testsResult = [];
-    while (rawTestSuite.length > 0) {
-        // Extract
-        let [score, test] = rawTestSuite.splice(0, 2);
-        score = Number(score);
-        let time = 0;
-        // Skip unused EOL chararcter
-        test = test.slice(EOL.length);
-        // In case run time is included in `details`
-        ({ test, time } = filterTestTime(test, time));
-        // Parse verdict and details if there is
-        const { verdict, details } = parseTestVerdict(test.split(EOL));
+function parseTestCase(rawTestCase) {
+    let [score, test] = rawTestCase;
+    score = Number(score);
+    let time = 0;
+    // Skip unused EOL chararcter
+    test = test.slice(EOL.length);
+    // In case run time is included in `details`
+    ({ test, time } = filterTestTime(test, time));
+    // Parse verdict and details if there is
+    const { verdict, details } = parseTestVerdict(test.split(EOL));
 
-        if (details) testsResult.push({ score, time, verdict, details });
-        else testsResult.push({ score, time, verdict });
-    }
-    return testsResult;
+    if (details) return { score, time, verdict, details };
+    else return { score, time, verdict };
 }
 
 /**
@@ -118,7 +131,7 @@ function parseTestSuite(rawTestSuite) {
 function filterTestTime(test, time) {
     const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
     if (rTime.test(test)) {
-        let timeStr = test.split(rTime).filter(s => s !== "");
+        let timeStr = test.split(rTime).filter((s) => s !== "");
         // Set `time` to time
         time = Number(timeStr[0]);
         // Remove timeStr from `details`
