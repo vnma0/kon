@@ -4,6 +4,16 @@ import { basename, extname } from "path";
 import { promisify } from "util";
 
 /**
+ * Check if given filePath is a File in filesystem
+ * @param {PathLike} filePath A path string
+ * @return {Boolean} True if it is, else vice versa
+ */
+export function isFile(filePath) {
+    const stat = lstatSync(filePath);
+    return stat.isFile();
+}
+
+/**
  * Convert filename to tuple of base and extension
  * @param {PathLike} filename Path to filename
  * @returns {Tuple} base, ext
@@ -28,6 +38,7 @@ function logName2Data(filename) {
     return data;
 }
 
+const EOL = "\r\n";
 /**
  * Parse log and return as an Object
  * @param {PathLike} filePath Path to log file
@@ -36,18 +47,16 @@ function logName2Data(filename) {
 export async function parseLog(filePath) {
     if (!isFile(filePath)) return null;
 
-    const EOL = "\r\n";
-    const readFileAsync = promisify(readFile);
-    const file = await readFileAsync(filePath, "utf8");
-    const lines = file.split(EOL);
+    const file = await promisify(readFile)(filePath, "utf8");
     const [user, prob] = logName2Data(basename(filePath));
 
-    const header = esr(`${user}‣${prob}`);
-    const rScore = new RegExp(`^${header}‣Test[0-9]{2}: (.*)$`, "im");
-    const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
-    const rExitCode = new RegExp(esr("(Hexadecimal: ") + "(.+)" + esr(")"));
+    const lines = file.split(EOL);
 
-    const findVerdict = lines[0].match(new RegExp(`${header}: (.*)`, "i"));
+    const header = esr(`${user}‣${prob}`);
+    const rVerdict = new RegExp(`${header}: (.*)`, "i");
+    const rScore = new RegExp(`^${header}‣Test[0-9]{2}: (.*)$`, "im");
+
+    const findVerdict = lines[0].match(rVerdict);
     const finalScore = Number(findVerdict[1]);
 
     if (isNaN(finalScore)) {
@@ -59,65 +68,74 @@ export async function parseLog(filePath) {
         };
     }
 
-    // Magic
-    // Reverse log file then split it using rScore regex
-    // After that, reverse again to receive array of testResult
-    const rawResult = lines
+    const rawTestSuite = lines
         .slice(4)
         .join(EOL)
         .split(rScore);
-
-    rawResult.shift();
-
-    const testsResult = [];
-    while (rawResult.length > 0) {
-        let [score, test] = rawResult.splice(0, 2);
-        score = Number(score);
-        let time = 0;
-        // Skip unused EOL chararcter
-        test = test.slice(EOL.length);
-        let verdict = null;
-        let details = null;
-        // In case run time is included in `details`
-        if (rTime.test(test)) {
-            let timeStr = test.split(rTime).filter(s => s !== "");
-            // Set `time` to time
-            time = Number(timeStr[0]);
-            // Remove timeStr from `details`
-
-            test = timeStr[1];
-        }
-
-        test = test.split(EOL);
-
-        switch (test[0]) {
-            case "Kết quả khớp đáp án!":
-                verdict = "AC";
-                break;
-            case "Kết quả KHÁC đáp án!":
-                verdict = "WA";
-                break;
-            case "Chạy quá thời gian":
-                verdict = "TLE";
-                break;
-            case "Chạy sinh lỗi":
-                verdict = "RTE";
-                details = "Exit code: " + test[1].match(rExitCode)[1];
-                break;
-        }
-        if (details) testsResult.push({ score, time, verdict, details });
-        else testsResult.push({ score, time, verdict });
-    }
+    rawTestSuite.shift();
 
     return {
         id: user,
         problem: prob,
         finalScore,
-        tests: testsResult
+        tests: parseTestSuite(rawTestSuite)
     };
 }
 
-export function isFile(filePath) {
-    const stat = lstatSync(filePath);
-    return stat.isFile();
+/**
+ * Parse rawTestSuite into testSuite object
+ * @param {Array} rawTestSuite Array of rawTestCase
+ * @returns Array of testCase
+ */
+function parseTestSuite(rawTestSuite) {
+    const testsResult = [];
+    while (rawTestSuite.length > 0) {
+        let [score, test] = rawTestSuite.splice(0, 2);
+        score = Number(score);
+        let time = 0;
+        // Skip unused EOL chararcter
+        test = test.slice(EOL.length);
+        // In case run time is included in `details`
+        const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
+        if (rTime.test(test)) {
+            let timeStr = test.split(rTime).filter(s => s !== "");
+            // Set `time` to time
+            time = Number(timeStr[0]);
+            // Remove timeStr from `details`
+            test = timeStr[1];
+        }
+        test = test.split(EOL);
+
+        const { verdict, details } = parseTestVerdict(test);
+
+        if (details) testsResult.push({ score, time, verdict, details });
+        else testsResult.push({ score, time, verdict });
+    }
+    return testsResult;
+}
+
+/**
+ * Parse rawTestSuite into testSuite object
+ * @param {Array} rawDetails
+ * @returns verdicts and details
+ */
+function parseTestVerdict(rawDetails) {
+    // Filter Exit code
+    const rExitCode = new RegExp(esr("(Hexadecimal: ") + "(.+)" + esr(")"));
+
+    // TODO: Add "Chạy quá bộ nhớ"
+    const verdicts = {
+        "Kết quả khớp đáp án!": "AC",
+        "Kết quả KHÁC đáp án!": "WA",
+        "Chạy quá thời gian": "TLE",
+        "Chạy sinh lỗi": "RTE"
+    };
+
+    const verdict = verdicts[rawDetails[0]] || null;
+    const details =
+        verdict === "RTE"
+            ? "Exit code: " + rawDetails[1].match(rExitCode)[1]
+            : null;
+
+    return { verdict, details };
 }
