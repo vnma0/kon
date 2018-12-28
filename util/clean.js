@@ -9,7 +9,7 @@ import { submitFolder, uploadFolder } from "../config/folder";
  */
 export function unlinkAsync(path) {
     return new Promise((resolve, reject) => {
-        unlink(path, err => {
+        unlink(path, (err) => {
             if (err) reject(err);
             else resolve();
         });
@@ -23,7 +23,7 @@ export function unlinkAsync(path) {
  */
 function cleanFolder(path) {
     const files = readdirSync(path);
-    const promise = files.map(file => join(path, file)).map(unlinkAsync);
+    const promise = files.map((file) => join(path, file)).map(unlinkAsync);
     Promise.all(promise);
 }
 
