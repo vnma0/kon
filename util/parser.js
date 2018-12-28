@@ -44,11 +44,11 @@ function logName2Data(filename) {
 /**
  * Chunk array into array of subarrays
  * @param {Array} array
- * @param {Number} chunk_size
+ * @param {Number} chunkSize
  */
-function chunkArray(array, chunk_size) {
+function chunkArray(array, chunkSize) {
     var results = [];
-    while (array.length) results.push(array.splice(0, chunk_size));
+    while (array.length) results.push(array.splice(0, chunkSize));
 
     return results;
 }
