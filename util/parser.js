@@ -25,17 +25,18 @@ export function sepName(filename) {
 }
 
 /**
- * Turn file name into name and problem name
+ * Turn file name into id and problem name like Themis
  * @param {String} filename
+ * @return {Array} id and problem
  */
 function logName2Data(filename) {
-    // TODO: Sanitize filename
-    const data = filename
-        .split(/\[(.+?)\]/)
-        .filter((s) => s !== "")
-        .slice(0, 2);
+    // Read data the same way as Themis
+    const [id, problem] = filename
+        .match(/\[(.+?)\]/g)
+        .map((s) => s.slice(1, -1))
+        .slice(-2);
 
-    return data;
+    return { id, problem };
 }
 
 /**
@@ -45,10 +46,7 @@ function logName2Data(filename) {
  */
 function chunkArray(array, chunk_size) {
     var results = [];
-
-    while (array.length) {
-        results.push(array.splice(0, chunk_size));
-    }
+    while (array.length) results.push(array.splice(0, chunk_size));
 
     return results;
 }
@@ -128,11 +126,11 @@ export async function parseLog(filePath) {
     if (!isFile(filePath)) return null;
 
     const file = await promisify(readFile)(filePath, "utf8");
-    const [user, prob] = logName2Data(basename(filePath));
+    const { id, problem } = logName2Data(basename(filePath));
 
     const lines = file.split(EOL);
 
-    const header = esr(`${user}‣${prob}`);
+    const header = esr(`${id}‣${problem}`);
     const rVerdict = new RegExp(header + ": (.*)", "i");
     const rScore = new RegExp(header + "‣Test[0-9]{2}: (.*)", "i");
 
@@ -140,14 +138,13 @@ export async function parseLog(filePath) {
     const finalScore = Number(findVerdict[1]);
 
     // CE (Compiler Error) case
-    if (isNaN(finalScore)) {
+    if (isNaN(finalScore))
         return {
-            id: user,
-            problem: prob,
+            id,
+            problem,
             finalScore,
             details: lines.slice(3).join(EOL)
         };
-    }
 
     // Convert log into array of testSuite, additionally with score
     const rawTestSuite = chunkArray(
@@ -160,8 +157,8 @@ export async function parseLog(filePath) {
     );
 
     return {
-        id: user,
-        problem: prob,
+        id,
+        problem,
         finalScore,
         tests: rawTestSuite.map(parseTestCase)
     };
