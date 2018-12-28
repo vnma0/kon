@@ -1,17 +1,14 @@
 import express from "express";
 import { address } from "ip";
-import { join } from "path";
-import { readdirSync } from "fs";
 import helmet from "helmet";
 import morgan from "morgan";
 
-import { submitFolder, cwd } from "./config/folder";
-import { formUpload } from "./middleware/upload";
-import { checkStatus, validateCode } from "./middleware/validate";
-import { submitToThemis } from "./core/submit";
-import { parseLog, isFile } from "./util/parser";
-import { cleanTemp, unlinkAsync } from "./util/clean";
 import { task } from "./routes/task";
+import { check } from "./routes/check";
+import { get } from "./routes/get";
+import { submit } from "./routes/submit";
+
+import { cleanTemp } from "./util/clean";
 
 const app = express();
 
@@ -21,59 +18,11 @@ app.use(helmet());
 // Safety first
 app.use(morgan("tiny"));
 
+// Routing
 app.use("/task", task);
-
-/**
- * /check - /GET
- * @description Check if server has done handshake.
- */
-app.get("/check", checkStatus, (req, res) => {
-    res.sendStatus(200);
-});
-
-/**
- * /submit - /POST
- * @description Receive source code from Wafter and then move it to Themis
- */
-app.post("/submit", checkStatus, formUpload, validateCode, (req, res) => {
-    const code = req.files.code[0];
-    const id = req.body.id;
-
-    // Verify id
-    if (!id) {
-        // Response: 400 Bad Request
-        res.sendStatus(400);
-        return;
-    }
-    submitToThemis(code, id);
-
-    // Response: 200 OK
-    res.sendStatus(200);
-});
-
-/**
- * /get - /GET
- * @description Return array's of log from Themis
- * This route use parseLog - async function, which enhance run time
- * TODO: enhance parseLog usage
- */
-app.get("/get", checkStatus, (req, res) => {
-    // Folder contain log
-    const logFolder = join(cwd, submitFolder, "Logs");
-
-    const fileList = readdirSync(logFolder)
-        .filter((file) => file) // Filter empty string
-        .map((file) => join(logFolder, file)) // Convert into fullpath
-        .filter(isFile); // Filter files only
-
-    // Convert into Promises
-    const promiseLogs = fileList.map(parseLog);
-    // Asynchronously parse all log file then send it back as response
-    Promise.all(promiseLogs).then((result) => res.send(result));
-
-    // TODO: Delete sent logs
-    Promise.all(fileList.map(unlinkAsync)).catch(console.error);
-});
+app.use("/check", check);
+app.use("/submit", submit);
+app.use("/get", get);
 
 /**
  * Start server
