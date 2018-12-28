@@ -3,6 +3,8 @@ import esr from "escape-string-regexp";
 import { basename, extname } from "path";
 import { promisify } from "util";
 
+import { verdicts } from "../config/parser";
+
 /**
  * Check if given filePath is a File in filesystem
  * @param {PathLike} filePath A path string
@@ -80,19 +82,10 @@ function parseTestVerdict(rawDetails) {
     // Filter Exit code
     const rExitCode = new RegExp(esr("(Hexadecimal: ") + "(.+)" + esr(")"));
 
-    // TODO: Add "Chạy quá bộ nhớ"
-    const verdicts = {
-        "Kết quả khớp đáp án!": "AC",
-        "Kết quả KHÁC đáp án!": "WA",
-        "Chạy quá thời gian": "TLE",
-        "Chạy sinh lỗi": "RTE"
-    };
-
     const verdict = verdicts[rawDetails[0]] || rawDetails[0];
-    const details =
-        verdict === "RTE"
-            ? "Exit code: " + rawDetails[1].match(rExitCode)[1]
-            : rawDetails[1] || null;
+    const details = rExitCode.test(rawDetails[1])
+        ? "Exit code: " + rawDetails[1].match(rExitCode)[1]
+        : rawDetails[1] || undefined;
 
     return { verdict, details };
 }
@@ -110,11 +103,13 @@ function parseTestCase(rawTestCase) {
     test = test.slice(EOL.length);
     // In case run time is included in `details`
     ({ test, time } = filterTestTime(test, time));
-    // Parse verdict and details if there is
-    const { verdict, details } = parseTestVerdict(test.split(EOL));
 
-    if (details) return { score, time, verdict, details };
-    else return { score, time, verdict };
+    // Parse verdict and details if there is
+    const verdict = parseTestVerdict(test.split(EOL));
+
+    // if (details) return { score, time, verdict, details };
+    // else return { score, time, verdict };
+    return { score, time, ...verdict };
 }
 
 /**
