@@ -1,5 +1,4 @@
 import express from "express";
-import { address } from "ip";
 import helmet from "helmet";
 import morgan from "morgan";
 
@@ -32,7 +31,7 @@ app.listen(PORT, () => {
     // TODO: clean everything before start and prepare directory
     cleanTemp();
     // Verbose
-    console.log(`Server is listening on ${address()} at ${PORT}`);
+    console.log(`Server is listening at ${PORT}`);
 });
 
 // TODO: clean code
