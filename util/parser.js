@@ -88,11 +88,11 @@ function parseTestVerdict(rawDetails) {
         "Chạy sinh lỗi": "RTE"
     };
 
-    const verdict = verdicts[rawDetails[0]] || null;
+    const verdict = verdicts[rawDetails[0]] || rawDetails[0];
     const details =
         verdict === "RTE"
             ? "Exit code: " + rawDetails[1].match(rExitCode)[1]
-            : null;
+            : rawDetails[1] || null;
 
     return { verdict, details };
 }
