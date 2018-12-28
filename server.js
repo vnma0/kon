@@ -6,18 +6,12 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import { submitFolder, cwd } from "./config/folder";
-import { formUpload, taskUpload } from "./middleware/upload";
-import {
-    checkStatus,
-    checkInitial,
-    validateCode,
-    validateTask
-} from "./middleware/validate";
+import { formUpload } from "./middleware/upload";
+import { checkStatus, validateCode } from "./middleware/validate";
 import { submitToThemis } from "./core/submit";
 import { parseLog, isFile } from "./util/parser";
 import { cleanTemp, unlinkAsync } from "./util/clean";
-import Status from "./core/status";
-import { extractTasks } from "./core/setup";
+import { task } from "./routes/task";
 
 const app = express();
 
@@ -27,17 +21,7 @@ app.use(helmet());
 // Safety first
 app.use(morgan("tiny"));
 
-/**
- * /task - /POST
- * @description Recieve task from Wafter. This route run for once only
- */
-app.post("/task", checkInitial, taskUpload, validateTask, (req, res) => {
-    const taskZipPath = req.file.path;
-    extractTasks(taskZipPath).then(() => {
-        Status.setReady();
-        res.sendStatus(200);
-    });
-});
+app.use("/task", task);
 
 /**
  * /check - /GET
