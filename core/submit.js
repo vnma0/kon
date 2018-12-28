@@ -15,6 +15,6 @@ export async function submitToThemis(code, id) {
     const dest = join(submitFolder, newName);
 
     copyFile(code.path, dest, (err) => {
-        if (err) console.error(err);
+        if (err) throw err;
     });
 }

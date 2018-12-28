@@ -27,10 +27,16 @@ router.get("/", checkStatus, (req, res) => {
     // Convert into Promises
     const promiseLogs = fileList.map(parseLog);
     // Asynchronously parse all log file then send it back as response
-    Promise.all(promiseLogs).then((result) => res.send(result));
+    Promise.all(promiseLogs)
+        .then((result) => res.send(result))
+        .catch((err) => {
+            throw err;
+        });
 
     // TODO: Delete sent logs
-    Promise.all(fileList.map(unlinkAsync)).catch(console.error);
+    Promise.all(fileList.map(unlinkAsync)).catch((err) => {
+        throw err;
+    });
 });
 
 export { router as get };
