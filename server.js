@@ -2,6 +2,8 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 
+import { logRequest, taskRequired, PORT } from "./config/server";
+
 import { task } from "./routes/task";
 import { check } from "./routes/check";
 import { get } from "./routes/get";
@@ -11,14 +13,12 @@ import { cleanTemp } from "./util/clean";
 
 const app = express();
 
-const PORT = 30000;
-
 app.use(helmet());
 // Safety first
-app.use(morgan("tiny"));
+if (logRequest) app.use(morgan("tiny"));
 
 // Routing
-app.use("/task", task);
+if (taskRequired) app.use("/task", task);
 app.use("/check", check);
 app.use("/submit", submit);
 app.use("/get", get);

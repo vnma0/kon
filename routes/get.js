@@ -16,11 +16,11 @@ const router = express.Router();
  * TODO: enhance parseLog usage
  */
 router.get("/", checkStatus, (req, res) => {
+    // TOOO: Seperate session to make the log private
     // Folder contain log
     const logFolder = join(cwd, submitFolder, "Logs");
 
     const fileList = readdirSync(logFolder)
-        .filter((file) => file) // Filter empty string
         .map((file) => join(logFolder, file)) // Convert into fullpath
         .filter(isFile); // Filter files only
 
@@ -28,7 +28,7 @@ router.get("/", checkStatus, (req, res) => {
     const promiseLogs = fileList.map(parseLog);
     // Asynchronously parse all log file then send it back as response
     Promise.all(promiseLogs)
-        .then((result) => res.send(result))
+        .then(res.send)
         .catch((err) => {
             throw err;
         });
