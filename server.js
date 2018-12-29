@@ -9,6 +9,7 @@ import { check } from "./routes/check";
 import { get } from "./routes/get";
 import { submit } from "./routes/submit";
 
+import Status from "./core/status";
 import { cleanTemp } from "./util/clean";
 
 const app = express();
@@ -19,6 +20,8 @@ if (logRequest) app.use(morgan("tiny"));
 
 // Routing
 if (taskRequired) app.use("/task", task);
+else Status.setReady();
+
 app.use("/check", check);
 app.use("/submit", submit);
 app.use("/get", get);

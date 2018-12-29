@@ -1,8 +1,6 @@
-import { taskRequired } from "../config/server";
-
 class Status {
     constructor() {
-        this.ready = !taskRequired;
+        this.ready = false;
     }
 
     setReady() {
