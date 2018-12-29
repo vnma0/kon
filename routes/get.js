@@ -26,9 +26,13 @@ router.get("/", checkStatus, (req, res) => {
 
     // Convert into Promises
     const promiseLogs = fileList.map(parseLog);
+    if (!promiseLogs.length) {
+        res.send([]);
+        return;
+    }
     // Asynchronously parse all log file then send it back as response
     Promise.all(promiseLogs)
-        .then(res.send)
+        .then(() => res.send())
         .catch((err) => {
             throw err;
         });
