@@ -38,7 +38,6 @@ function checkCodeType(file) {
 /**
  * Check if recieved file is a valid source code
  * If the received file is empty, send status 400
- * Else if file's size is over limit, send status 413
  * Else if file's type is incorrect, send status 415
  * Else call next()
  * @param {Request} req Express request object
@@ -64,6 +63,15 @@ function checkTaskType(file) {
     return file.mimetype === "application/zip";
 }
 
+/**
+ * Check if recieved file is a valid task
+ * If the received file is not, send status 400
+ * Else if file's type is incorrect, send status 415
+ * Else call next()
+ * @param {Request} req Express request object
+ * @param {Response} res Express response object
+ * @param {callback} next Express next middleware function
+ */
 export function validateTask(req, res, next) {
     // Check for invalid task file
     const task = req.file;

@@ -32,7 +32,7 @@ router.get("/", checkStatus, (req, res) => {
     }
     // Asynchronously parse all log file then send it back as response
     Promise.all(promiseLogs)
-        .then((result) => res.send(result))
+        .then((result) => res.json(result))
         .catch((err) => {
             throw err;
         });
