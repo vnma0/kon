@@ -11,8 +11,13 @@ import { verdicts } from "../config/parser";
  * @return {Boolean} True if it is, else vice versa
  */
 export function isFile(filePath) {
-    const stat = lstatSync(filePath);
-    return stat.isFile();
+    try {
+        const stat = lstatSync(filePath);
+        return stat.isFile();
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
 }
 
 /**
