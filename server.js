@@ -11,6 +11,7 @@ import { submit } from "./routes/submit";
 
 import Status from "./core/status";
 import { cleanTemp } from "./util/clean";
+import { queue } from "./routes/queue";
 
 const app = express();
 
@@ -25,6 +26,7 @@ else Status.setReady();
 app.use("/check", check);
 app.use("/submit", submit);
 app.use("/get", get);
+app.use("/queue", queue);
 
 /**
  * Start server
