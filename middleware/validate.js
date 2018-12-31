@@ -1,4 +1,4 @@
-import { acceptMIME, codeSizeLimit } from "../config/code";
+import { acceptMIME } from "../config/code";
 import status from "../core/status";
 
 /**
