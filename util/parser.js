@@ -15,7 +15,6 @@ export function isFile(filePath) {
         const stat = lstatSync(filePath);
         return stat.isFile();
     } catch (err) {
-        console.log(err);
         return false;
     }
 }
