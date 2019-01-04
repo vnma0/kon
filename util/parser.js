@@ -6,8 +6,10 @@ import { promisify } from "util";
 import { verdicts } from "../config/parser";
 
 /**
- * Check if given filePath is a File in filesystem
- * @param {PathLike} filePath A path string
+ * Call this to check if given filePath is a File in filesystem
+ * In order to avoid dependencies, isFile use lstatSync by Node.js
+ * to read file's status
+ * @param {PathLike} filePath An path string to unknown file
  * @return {Boolean} True if it is, else vice versa
  */
 export function isFile(filePath) {
@@ -20,9 +22,16 @@ export function isFile(filePath) {
 }
 
 /**
- * Convert filename to tuple of base and extension
+ * @typedef {Object} filenameTuple
+ * @property {String} base basename
+ * @property {String} ext extension
+ */
+
+/**
+ * Call this function to convert filename to tuple of base and extension.
+ * This function was simply created to solve code duplication issues.
  * @param {PathLike} filename Path to filename
- * @returns {Tuple} base, ext
+ * @returns {filenameTuple} basename and extension of a filename
  */
 export function sepName(filename) {
     const ext = extname(filename);
@@ -31,9 +40,17 @@ export function sepName(filename) {
 }
 
 /**
- * Turn file name into id and problem name like Themis
- * @param {String} filename
- * @return {Array} id and problem
+ * @typedef {Object} logAbsType
+ * @property {String} id log's user's id
+ * @property {String} problem log's problem
+ */
+
+/**
+ * This function will extract file name into id and problem name like Themis.
+ * It is recommended that the filename is the untouched output from Themis.
+ * In case it isn't, the return
+ * @param {String} filename log's file name, this include no pathLike string
+ * @returns {logAbsType} id and problem of log
  */
 function logName2Data(filename) {
     // Read data the same way as Themis
@@ -46,7 +63,9 @@ function logName2Data(filename) {
 }
 
 /**
- * Chunk array into array of subarrays
+ * Push array to this function to chunk array into array of subarrays.
+ * It is helpful especially when array need to be divided in sections.
+ * This one was written due to native preference.
  * @param {Array} array
  * @param {Number} chunkSize
  */
@@ -60,10 +79,18 @@ function chunkArray(array, chunkSize) {
 const EOL = "\r\n";
 
 /**
- * Filter time from test
- * ({ test, time } = filterTestTime(test, time));
+ * @typedef {Object} testAndTime
+ * @property {String} test A test case without time string
+ * @property {Number} time Extracted time from test case
+ */
+
+/**
+ * Call this function to seperate time and test.
+ * The function was refactored from parseTestCase,
+ * in order to keep the code clean.
  * @param {String} test Test's details line
  * @param {Number} time Pass by reference
+ * @returns {testAndTime} Extracted test and time from test case
  */
 function filterTestTime(test, time) {
     const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
@@ -78,9 +105,16 @@ function filterTestTime(test, time) {
 }
 
 /**
- * Parse rawDeatails into verdicts and details
- * @param {Array} rawDetails
- * @returns verdicts and details
+ * @typedef {Object} parsedTestVerdict
+ * @property {String} verdict Final test case verdict
+ * @property {String} details Further details from test case
+ */
+
+/**
+ * Call this function to parse rawDeatails into verdicts and details.
+ * Cause exceptional test case contains verdict and details after time and result.
+ * @param {Array} rawDetails raw extraction from test case in log file
+ * @returns {parsedTestVerdict} Verdicts and details from a test case
  */
 function parseTestVerdict(rawDetails) {
     // Filter Exit code
@@ -95,9 +129,19 @@ function parseTestVerdict(rawDetails) {
 }
 
 /**
- * Parse rawTestCase into testCase object
- * @param {Array} rawTestCase
- * @returns parsedTestCase
+ * @typedef {Object} parsedTestCase
+ * @property {String} score Final testCase score
+ * @property {String} time testCase time
+ * @property {String} verdict Final testCase verdict
+ * @property {String} [details] Optional testCase details
+ */
+
+/**
+ * Use this function to parse rawTestCase into parsedTestCase object.
+ * The whole log file is divided into testCases, and parseTestCase is used
+ * in order to retrieve acutal result from Themis.
+ * @param {Array} rawTestCase raw extraction of testCase from log file
+ * @returns {parsedTestCase} Parsed test case from rawTestCase
  */
 function parseTestCase(rawTestCase) {
     let [score, test] = rawTestCase;
@@ -117,9 +161,20 @@ function parseTestCase(rawTestCase) {
 }
 
 /**
- * Parse log and return as an Object
- * @param {PathLike} filePath Path to log file
- * @returns {Object} Contains submission result
+ * @typedef {Object} submissionResult
+ * @property {String} id Submitter's ID
+ * @property {String} problem Submission's problem
+ * @property {Number} finalScore Submission's final score
+ * @property {String} [details] Compiling error
+ * @property {Array<parsedTestCase>} [tests] Compilation of testCases result
+ */
+
+/**
+ * Use this function to parse log and return it as an JSON.
+ * This is helpful for Wafter because it boost overall load performance,
+ * and lower Wafter CPU's Load
+ * @param {PathLike} filePath Path to log file that need to be parsed
+ * @returns {SubmissionResult} Contains submission result read from log file
  */
 export async function parseLog(filePath) {
     if (!isFile(filePath)) return null;
