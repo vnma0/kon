@@ -1,9 +1,7 @@
-import { join } from "path";
-
 /**
  * Current Working Directory
  */
-export const cwd = join(__dirname, "..");
+export const cwd = process.cwd();
 
 /**
  * Folder contains log result after submit code
