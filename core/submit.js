@@ -15,6 +15,6 @@ export async function submitToThemis(code, id) {
     const dest = join(submitFolder, newName);
 
     copyFile(code.path, dest, (err) => {
-        if (err) throw err;
+        if (err) throw new Error ("Copying file failed; is the submit/ directory writable?");
     });
 }
