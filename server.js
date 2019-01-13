@@ -1,16 +1,17 @@
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import Console from "console";
 
 import { logRequest, taskRequired, PORT } from "./config/server";
-
-import { task } from "./routes/task";
-import { check } from "./routes/check";
-import { get } from "./routes/get";
-import { submit } from "./routes/submit";
-import { queue } from "./routes/queue";
-
 import Status from "./core/status";
+
+import task from "./routes/task";
+import check from "./routes/check";
+import get from "./routes/get";
+import submit from "./routes/submit";
+import queue from "./routes/queue";
+
 import { cleanTemp } from "./util/clean";
 import { checkStatus } from "./middleware/validate";
 
@@ -42,7 +43,7 @@ app.listen(PORT, () => {
     // TODO: clean everything before start and prepare directory
     cleanTemp();
     // Verbose
-    console.log(`Server is listening at ${PORT}`);
+    Console.log(`Server is listening at ${PORT}`);
 });
 
 // TODO: clean code

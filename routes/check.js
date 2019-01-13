@@ -10,4 +10,4 @@ router.get("/", (req, res) => {
     res.sendStatus(200);
 });
 
-export { router as check };
+export default router;

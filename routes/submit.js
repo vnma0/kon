@@ -26,4 +26,4 @@ router.post("/", formUpload, validateCode, (req, res) => {
     res.sendStatus(200);
 });
 
-export { router as submit };
+export default router;

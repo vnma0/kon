@@ -16,4 +16,4 @@ router.get("/", (req, res) => {
     }
 });
 
-export { router as queue };
+export default router;

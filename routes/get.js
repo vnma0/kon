@@ -42,4 +42,4 @@ router.get("/", (req, res) => {
     });
 });
 
-export { router as get };
+export default router;

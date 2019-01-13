@@ -22,4 +22,4 @@ router.post("/", checkInitial, taskUpload, validateTask, (req, res) => {
     });
 });
 
-export { router as task };
+export default router;
