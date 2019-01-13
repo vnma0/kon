@@ -32,7 +32,7 @@ export function checkInitial(req, res, next) {
  * @param {Object} file source code blob
  */
 function checkCodeType(file) {
-    return acceptMIME.indexOf(file.mimetype) !== -1;
+    return acceptMIME.includes(file.mimetype);
 }
 
 /**

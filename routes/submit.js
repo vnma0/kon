@@ -1,7 +1,7 @@
 import express from "express";
 
 import { formUpload } from "../middleware/upload";
-import { checkStatus, validateCode } from "../middleware/validate";
+import { validateCode } from "../middleware/validate";
 import { submitToThemis } from "../core/submit";
 
 const router = express.Router();
@@ -10,7 +10,7 @@ const router = express.Router();
  * /submit - /POST
  * @description Receive source code from Wafter and then move it to Themis
  */
-router.post("/", checkStatus, formUpload, validateCode, (req, res) => {
+router.post("/", formUpload, validateCode, (req, res) => {
     const code = req.files.code[0];
     const id = req.body.id;
 

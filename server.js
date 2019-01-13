@@ -8,10 +8,11 @@ import { task } from "./routes/task";
 import { check } from "./routes/check";
 import { get } from "./routes/get";
 import { submit } from "./routes/submit";
+import { queue } from "./routes/queue";
 
 import Status from "./core/status";
 import { cleanTemp } from "./util/clean";
-import { queue } from "./routes/queue";
+import { checkStatus } from "./middleware/validate";
 
 const app = express();
 
@@ -23,6 +24,7 @@ if (logRequest) app.use(morgan("tiny"));
 if (taskRequired) app.use("/task", task);
 else Status.setReady();
 
+app.use(checkStatus);
 app.use("/check", check);
 app.use("/submit", submit);
 app.use("/get", get);
