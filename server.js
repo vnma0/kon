@@ -24,6 +24,10 @@ if (logRequest) app.use(morgan("tiny"));
 if (taskRequired) app.use("/task", task);
 else Status.setReady();
 
+app.all("/", (req, res) => {
+    res.sendStatus(418);
+});
+
 app.use(checkStatus);
 app.use("/check", check);
 app.use("/submit", submit);
