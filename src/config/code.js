@@ -2,7 +2,7 @@
  * Limit accept file type
  * Google "MIME" for correct MIME string
  */
-export const acceptMIME = [
+const acceptMIME = [
     "text/x-c",
     "text/x-pascal",
     "text/x-java-source",
@@ -14,10 +14,16 @@ export const acceptMIME = [
  * Limit code size: ~ 10 KB
  * This will make sure server can easily handle code without many problems
  */
-export const codeSizeLimit = 10000;
+const sizeLimit = 10000;
 
 /**
  * Limit zipped task size: ~ 25 MB
  * This will limit request without breaking network
  */
-export const taskSizeLimit = 25000000;
+const taskSizeLimit = 25000000;
+
+export default {
+    acceptMIME,
+    sizeLimit,
+    taskSizeLimit
+};

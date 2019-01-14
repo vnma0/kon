@@ -1,6 +1,6 @@
 import multer from "multer";
 import { uploadFolder } from "../config/folder";
-import { taskSizeLimit, codeSizeLimit } from "../config/code";
+import code from "../config/code";
 
 /**
  * Multer middleware wrapper to limit upload size
@@ -38,7 +38,7 @@ export const taskUpload = limitUpload(
     multer({
         dest: uploadFolder,
         limits: {
-            fileSize: taskSizeLimit,
+            fileSize: code.taskSizeLimit,
             files: 1,
             parts: 1,
             preservePath: true
@@ -59,7 +59,7 @@ export const formUpload = limitUpload(
     multer({
         dest: uploadFolder,
         limits: {
-            fileSize: codeSizeLimit,
+            fileSize: code.sizeLimit,
             files: 1,
             parts: 2,
             preservePath: true
