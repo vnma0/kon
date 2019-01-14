@@ -1,11 +1,11 @@
 {
   "name": "kon",
-  "version": "0.0.1",
-  "description": "Themis-side wrapper for Wafter",
-  "main": "server.js",
+  "version": "0.1.0",
+  "description": "Themis wrapper for Wafter",
+  "main": "src/server.js",
   "scripts": {
-    "start": "babel-node server.js",
-    "dev": "nodemon --exec babel-node server.js"
+    "start": "babel-node src/server.js",
+    "dev": "nodemon --exec babel-node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/vnma0/kon#readme",
   "dependencies": {
+    "dotenv": "^6.2.0",
     "escape-string-regexp": "^1.0.5",
     "express": "^4.16.4",
     "extract-zip": "^1.6.7",

@@ -3,8 +3,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import Console from "console";
 
-import { logRequest, taskRequired, PORT } from "./config/server";
-import Status from "./core/status";
+import server from "./config/server";
 
 import task from "./routes/task";
 import check from "./routes/check";
@@ -19,11 +18,10 @@ const app = express();
 
 app.use(helmet());
 // Safety first
-if (logRequest) app.use(morgan("tiny"));
+if (server.logRequest) app.use(morgan("tiny"));
 
 // Routing
-if (taskRequired) app.use("/task", task);
-else Status.setReady();
+app.use("/task", task);
 
 app.all("/", (req, res) => {
     res.sendStatus(418);
@@ -39,11 +37,11 @@ app.use("/queue", queue);
  * Start server
  * @description This will start listen at port PORT
  */
-app.listen(PORT, () => {
+let listener = app.listen(server.PORT, () => {
     // TODO: clean everything before start and prepare directory
     cleanTemp();
     // Verbose
-    Console.log(`Server is listening at ${PORT}`);
+    Console.log(`Server is listening at ${listener.address().port}`);
 });
 
 // TODO: clean code
