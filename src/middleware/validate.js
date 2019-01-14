@@ -1,3 +1,4 @@
+import mime from "mime";
 import { acceptMIME } from "../config/code";
 import status from "../core/status";
 
@@ -32,7 +33,8 @@ export function checkInitial(req, res, next) {
  * @param {Object} file source code blob
  */
 function checkCodeType(file) {
-    return acceptMIME.includes(file.mimetype);
+    const mimetype = mime.getType(file.originalname);
+    return acceptMIME.includes(file.mimetype) && mimetype === file.mimetype;
 }
 
 /**
