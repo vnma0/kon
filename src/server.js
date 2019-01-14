@@ -3,8 +3,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import Console from "console";
 
-import { logRequest, taskRequired, PORT } from "./config/server";
-import Status from "./core/status";
+import { logRequest, PORT } from "./config/server";
 
 import task from "./routes/task";
 import check from "./routes/check";
@@ -22,8 +21,7 @@ app.use(helmet());
 if (logRequest) app.use(morgan("tiny"));
 
 // Routing
-if (taskRequired) app.use("/task", task);
-else Status.setReady();
+app.use("/task", task);
 
 app.all("/", (req, res) => {
     res.sendStatus(418);
