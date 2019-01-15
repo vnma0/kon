@@ -1,6 +1,6 @@
-import mime from "mime";
-import { acceptMIME } from "../config/code";
+import { isBinaryFileSync } from "isbinaryfile";
 import status from "../core/status";
+import { readFileSync } from "fs";
 
 /**
  * Check if server is ready
@@ -33,8 +33,7 @@ export function checkInitial(req, res, next) {
  * @param {Object} file source code blob
  */
 function checkCodeType(file) {
-    const mimetype = mime.getType(file.originalname);
-    return acceptMIME.includes(file.mimetype) && mimetype === file.mimetype;
+    return !isBinaryFileSync(readFileSync(file.path));
 }
 
 /**
