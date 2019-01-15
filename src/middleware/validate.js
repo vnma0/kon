@@ -1,6 +1,5 @@
 import { isBinaryFileSync } from "isbinaryfile";
 import status from "../core/status";
-import { readFileSync } from "fs";
 
 /**
  * Check if server is ready
@@ -33,7 +32,7 @@ export function checkInitial(req, res, next) {
  * @param {Object} file source code blob
  */
 function checkCodeType(file) {
-    return !isBinaryFileSync(readFileSync(file.path));
+    return !isBinaryFileSync(file.path);
 }
 
 /**
