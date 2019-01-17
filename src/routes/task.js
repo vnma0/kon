@@ -16,7 +16,7 @@ router.post("/", checkInitial, taskUpload, validateTask, (req, res) => {
     extractTasks(taskZipPath).then((err) => {
         if (err) res.sendStatus(500);
         else {
-            Status.setReady();
+            Status.setReady(req.ip);
             res.sendStatus(200);
         }
     });

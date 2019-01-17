@@ -10,8 +10,10 @@ import status from "../core/status";
  * @param {callback} next Express next middleware function
  */
 export function checkStatus(req, res, next) {
-    if (status.ready) next();
-    else res.sendStatus(503);
+    if (status.ready) {
+        if (status.ready === req.ip) next();
+        else res.sendStatus(401);
+    } else res.sendStatus(503);
 }
 
 /**
