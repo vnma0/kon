@@ -3,8 +3,8 @@ class Status {
         this.ready = false;
     }
 
-    setReady() {
-        this.ready = true;
+    setReady(ip) {
+        this.ready = ip;
     }
 }
 
