@@ -1,6 +1,14 @@
+# JavaScript
 node_modules/
 package-lock.json
+
+# Build
+build/
+
+# Runtime
 upload/
 submit/
 Tasks/
+
+# Environment
 .env
