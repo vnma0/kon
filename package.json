@@ -5,7 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "start": "babel-node src/server.js",
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/server.js",
+    "build:win": "set NODE_ENV=production && babel src/ --out-dir build/babel/ && cd build/ && pkg -t node10-win -o kon babel/server.js && rmdir /s /q babel"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.2.0",
+    "babel-preset-minify": "^0.5.0",
     "eslint": "^5.11.1",
     "nodemon": "^1.18.9"
   }
