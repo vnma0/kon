@@ -18,10 +18,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vnma0/kon/issues"
-  },  
+  },
   "homepage": "https://github.com/vnma0/kon#readme",
   "dependencies": {
-    "@babel/polyfill": "^7.2.5",
     "dotenv": "^6.2.0",
     "escape-string-regexp": "^1.0.5",
     "express": "^4.16.4",
