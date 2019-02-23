@@ -2,6 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const Console = require("console");
+const ip = require("ip");
 
 const server = require("./config/server");
 
@@ -41,7 +42,10 @@ let listener = app.listen(server.PORT, () => {
     // TODO: clean everything before start and prepare directory
     cleanTemp();
     // Verbose
-    Console.log(`Server is listening at ${listener.address().port}`);
+
+    Console.log(
+        `Kon is listening at http://${ip.address()}:${listener.address().port}`
+    );
 });
 
 // TODO: clean code
