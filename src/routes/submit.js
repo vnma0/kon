@@ -2,7 +2,7 @@ const express = require("express");
 
 const { formUpload } = require("../middleware/upload");
 const { validateCode } = require("../middleware/validate");
-const { submitToThemis } = require("../core/submit");
+const submitToThemis = require("../core/submit");
 
 const router = express.Router();
 

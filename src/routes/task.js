@@ -1,7 +1,7 @@
 const express = require("express");
 
 const Status = require("../core/status");
-const { extractTasks } = require("../core/setup");
+const extractTasks = require("../core/setup");
 const { taskUpload } = require("../middleware/upload");
 const { checkInitial, validateTask } = require("../middleware/validate");
 
