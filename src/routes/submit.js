@@ -1,8 +1,8 @@
-import express from "express";
+const express = require("express");
 
-import { formUpload } from "../middleware/upload";
-import { validateCode } from "../middleware/validate";
-import { submitToThemis } from "../core/submit";
+const { formUpload } = require("../middleware/upload");
+const { validateCode } = require("../middleware/validate");
+const { submitToThemis } = require("../core/submit");
 
 const router = express.Router();
 
@@ -26,4 +26,4 @@ router.post("/", formUpload, validateCode, (req, res) => {
     res.sendStatus(200);
 });
 
-export default router;
+module.exports = router;

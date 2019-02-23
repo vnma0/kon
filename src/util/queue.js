@@ -1,13 +1,13 @@
-import { readdirSync } from "fs";
-import { cwd, submitFolder } from "../config/folder";
-import { isFile } from "./parser";
-import { join } from "path";
+const { readdirSync } = require("fs");
+const { cwd, submitFolder } = require("../config/folder");
+const { isFile } = require("./parser");
+const { join } = require("path");
 
 /**
  * Get queue
  * @returns {Number} number of files in queue
  */
-export function getQueue() {
+function getQueue() {
     const workDir = join(cwd, submitFolder);
     const filesInFolder = readdirSync(workDir);
     // TODO: Filter queue
@@ -16,3 +16,5 @@ export function getQueue() {
         .filter(isFile);
     return filesInQueue.length;
 }
+
+module.exports = getQueue;

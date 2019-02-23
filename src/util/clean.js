@@ -1,13 +1,13 @@
-import { readdirSync, unlink } from "fs";
-import { join } from "path";
+const { readdirSync, unlink } = require("fs");
+const { join } = require("path");
 
-import { submitFolder, uploadFolder } from "../config/folder";
+const { submitFolder, uploadFolder } = require("../config/folder");
 
 /**
  * Asynchronous wrapper of unlink
  * @param {PathLike} path path to file
  */
-export function unlinkAsync(path) {
+function unlinkAsync(path) {
     return new Promise((resolve, reject) => {
         unlink(path, (err) => {
             if (err) reject(err);
@@ -30,13 +30,19 @@ function cleanFolder(path) {
 /**
  * Clean log folder to make sure of serving fresh result everytime
  */
-export function cleanLog() {
+function cleanLog() {
     cleanFolder(join(submitFolder, "Logs"));
 }
 
 /**
  * Clean upload folder to prevent collison (though this might never happen)
  */
-export function cleanTemp() {
+function cleanTemp() {
     cleanFolder(uploadFolder);
 }
+
+module.exports = {
+    unlinkAsync,
+    cleanLog,
+    cleanTemp
+};

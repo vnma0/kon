@@ -1,18 +1,18 @@
-import express from "express";
-import helmet from "helmet";
-import morgan from "morgan";
-import Console from "console";
+const express = require("express");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const Console = require("console");
 
-import server from "./config/server";
+const server = require("./config/server");
 
-import task from "./routes/task";
-import check from "./routes/check";
-import get from "./routes/get";
-import submit from "./routes/submit";
-import queue from "./routes/queue";
+const task = require("./routes/task");
+const check = require("./routes/check");
+const get = require("./routes/get");
+const submit = require("./routes/submit");
+const queue = require("./routes/queue");
 
-import { cleanTemp } from "./util/clean";
-import { checkStatus } from "./middleware/validate";
+const { cleanTemp } = require("./util/clean");
+const { checkStatus } = require("./middleware/validate");
 
 const app = express();
 

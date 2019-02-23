@@ -10,7 +10,7 @@ const PORT = isNaN(process.env.PORT) ? 30000 : process.env.PORT;
  */
 const logRequest = true;
 
-export default {
+module.exports = {
     PORT: PORT,
     logRequest: logRequest
 };

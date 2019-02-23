@@ -1,5 +1,5 @@
-import express from "express";
-import { getQueue } from "../util/queue";
+const express = require("express");
+const { getQueue } = require("../util/queue");
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.get("/", (req, res) => {
     }
 });
 
-export default router;
+module.exports = router;

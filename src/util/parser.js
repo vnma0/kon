@@ -1,9 +1,9 @@
-import { readFile, lstatSync } from "fs";
-import esr from "escape-string-regexp";
-import { basename, extname } from "path";
-import { promisify } from "util";
+const { readFile, lstatSync } = require("fs");
+const esr = require("escape-string-regexp");
+const { basename, extname } = require("path");
+const { promisify } = require("util");
 
-import { verdicts } from "../config/parser";
+const { verdicts } = require("../config/parser");
 
 /**
  * Call this to check if given filePath is a File in filesystem
@@ -12,7 +12,7 @@ import { verdicts } from "../config/parser";
  * @param {PathLike} filePath An path string to unknown file
  * @return {Boolean} True if it is, else vice versa
  */
-export function isFile(filePath) {
+function isFile(filePath) {
     try {
         const stat = lstatSync(filePath);
         return stat.isFile();
@@ -33,7 +33,7 @@ export function isFile(filePath) {
  * @param {PathLike} filename Path to filename
  * @returns {filenameTuple} basename and extension of a filename
  */
-export function sepName(filename) {
+function sepName(filename) {
     const ext = extname(filename);
     const base = basename(filename, ext);
     return [base, ext];
@@ -176,7 +176,7 @@ function parseTestCase(rawTestCase) {
  * @param {PathLike} filePath Path to log file that need to be parsed
  * @returns {SubmissionResult} Contains submission result read from log file
  */
-export async function parseLog(filePath) {
+async function parseLog(filePath) {
     if (!isFile(filePath)) return null;
 
     const file = await promisify(readFile)(filePath, "utf8");
@@ -217,3 +217,9 @@ export async function parseLog(filePath) {
         tests: rawTestSuite.map(parseTestCase)
     };
 }
+
+module.exports = {
+    isFile,
+    sepName,
+    parseLog
+};
