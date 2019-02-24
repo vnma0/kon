@@ -1,10 +1,10 @@
-import express from "express";
-import { join } from "path";
-import { readdirSync } from "fs";
+const express = require("express");
+const { join } = require("path");
+const { readdirSync } = require("fs");
 
-import { submitFolder, cwd } from "../config/folder";
-import { parseLog, isFile } from "../util/parser";
-import { unlinkAsync } from "../util/clean";
+const { submitFolder, cwd } = require("../config/folder");
+const { parseLog, isFile } = require("../util/parser");
+const { unlinkAsync } = require("../util/clean");
 
 const router = express.Router();
 
@@ -42,4 +42,4 @@ router.get("/", (req, res) => {
     });
 });
 
-export default router;
+module.exports = router;

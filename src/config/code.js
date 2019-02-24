@@ -10,7 +10,7 @@ const sizeLimit = 10000;
  */
 const taskSizeLimit = 25000000;
 
-export default {
+module.exports = {
     sizeLimit,
     taskSizeLimit
 };

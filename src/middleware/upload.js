@@ -1,6 +1,6 @@
-import multer from "multer";
-import { uploadFolder } from "../config/folder";
-import code from "../config/code";
+const multer = require("multer");
+const { uploadFolder } = require("../config/folder");
+const code = require("../config/code");
 
 /**
  * Multer middleware wrapper to limit upload size
@@ -34,7 +34,7 @@ function limitUpload(multerMid) {
  * @param {Response} res Express response object
  * @param {callback} next Express next middleware function
  */
-export const taskUpload = limitUpload(
+const taskUpload = limitUpload(
     multer({
         dest: uploadFolder,
         limits: {
@@ -55,7 +55,7 @@ export const taskUpload = limitUpload(
  * @param {Response} res Express response object
  * @param {callback} next Express next middleware function
  */
-export const formUpload = limitUpload(
+const formUpload = limitUpload(
     multer({
         dest: uploadFolder,
         limits: {
@@ -66,3 +66,5 @@ export const formUpload = limitUpload(
         }
     }).fields([{ name: "code", maxCount: 1 }, { name: "id", maxCount: 1 }])
 );
+
+module.exports = { taskUpload, formUpload };

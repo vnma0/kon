@@ -1,9 +1,9 @@
-import express from "express";
+const express = require("express");
 
-import Status from "../core/status";
-import { extractTasks } from "../core/setup";
-import { taskUpload } from "../middleware/upload";
-import { checkInitial, validateTask } from "../middleware/validate";
+const Status = require("../core/status");
+const extractTasks = require("../core/setup");
+const { taskUpload } = require("../middleware/upload");
+const { checkInitial, validateTask } = require("../middleware/validate");
 
 const router = express.Router();
 
@@ -22,4 +22,4 @@ router.post("/", checkInitial, taskUpload, validateTask, (req, res) => {
     });
 });
 
-export default router;
+module.exports = router;

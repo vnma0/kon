@@ -8,4 +8,4 @@ class Status {
     }
 }
 
-export default new Status();
+module.exports = new Status();

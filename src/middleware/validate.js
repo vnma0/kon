@@ -1,5 +1,5 @@
-import { isBinaryFileSync } from "isbinaryfile";
-import status from "../core/status";
+const { isBinaryFileSync } = require("isbinaryfile");
+const status = require("../core/status");
 
 /**
  * Check if server is ready
@@ -9,7 +9,7 @@ import status from "../core/status";
  * @param {Response} res Express response object
  * @param {callback} next Express next middleware function
  */
-export function checkStatus(req, res, next) {
+function checkStatus(req, res, next) {
     if (status.ready) {
         if (status.ready === req.ip) next();
         else res.sendStatus(401);
@@ -24,7 +24,7 @@ export function checkStatus(req, res, next) {
  * @param {Response} res Express response object
  * @param {callback} next Express next middleware function
  */
-export function checkInitial(req, res, next) {
+function checkInitial(req, res, next) {
     if (status.ready) res.sendStatus(403);
     else next();
 }
@@ -46,7 +46,7 @@ function checkCodeType(file) {
  * @param {Response} res Express response object
  * @param {callback} next Express next middleware function
  */
-export function validateCode(req, res, next) {
+function validateCode(req, res, next) {
     const files = req.files;
     // Check for invalid code
     if (!files.code) res.sendStatus(400);
@@ -74,7 +74,7 @@ function checkTaskType(file) {
  * @param {Response} res Express response object
  * @param {callback} next Express next middleware function
  */
-export function validateTask(req, res, next) {
+function validateTask(req, res, next) {
     // Check for invalid task file
     const task = req.file;
     if (!task) res.sendStatus(400);
@@ -83,3 +83,10 @@ export function validateTask(req, res, next) {
         else res.sendStatus(415);
     }
 }
+
+module.exports = {
+    checkInitial,
+    checkStatus,
+    validateCode,
+    validateTask
+};
