@@ -1,6 +1,6 @@
 {
   "name": "kon",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Themis wrapper for Wafter",
   "main": "src/server.js",
   "bin": "build/server.js",
