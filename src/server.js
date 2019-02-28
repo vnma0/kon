@@ -15,6 +15,8 @@ const queue = require("./routes/queue");
 const { cleanTemp } = require("./util/clean");
 const { checkStatus } = require("./middleware/validate");
 
+const ON_DEATH = require("death");
+
 const app = express();
 
 app.use(helmet());
@@ -51,9 +53,8 @@ let listener = app.listen(server.PORT, () => {
     );
 });
 
-process.on("exit", () => {
+ON_DEATH(() => {
     listener.close(() => {
-        Console.log("Closing server");
-        process.exit(0);
+        Console.log("Shutting down Kon");
     });
 });
