@@ -48,4 +48,9 @@ let listener = app.listen(server.PORT, () => {
     );
 });
 
-// TODO: clean code
+process.on("exit", () => {
+    listener.close(() => {
+        Console.log("Closing server");
+        process.exit(0);
+    });
+});
