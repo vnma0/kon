@@ -1,3 +1,5 @@
+"use strict";
+
 const { copyFile } = require("fs");
 const { submitFolder } = require("../config/folder");
 const { join } = require("path");

@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require("express");
 const { join } = require("path");
 const { readdirSync } = require("fs");

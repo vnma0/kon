@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require("express");
 const { getQueue } = require("../util/queue");
 

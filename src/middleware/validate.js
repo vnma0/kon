@@ -1,3 +1,5 @@
+"use strict";
+
 const { isBinaryFileSync } = require("isbinaryfile");
 const status = require("../core/status");
 

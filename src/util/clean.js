@@ -1,3 +1,5 @@
+"use strict";
+
 const { readdirSync, unlink } = require("fs");
 const { join } = require("path");
 

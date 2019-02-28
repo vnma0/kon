@@ -1,3 +1,5 @@
+"use strict";
+
 const multer = require("multer");
 const { uploadFolder } = require("../config/folder");
 const code = require("../config/code");

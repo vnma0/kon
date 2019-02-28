@@ -1,3 +1,5 @@
+"use strict";
+
 const { readFile, lstatSync } = require("fs");
 const esr = require("escape-string-regexp");
 const { basename, extname } = require("path");

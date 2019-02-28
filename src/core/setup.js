@@ -1,3 +1,5 @@
+"use strict";
+
 const extract = require("extract-zip");
 const { cwd } = require("../config/folder");
 const { join } = require("path");

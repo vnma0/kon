@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Verdict dictionary.
  * Parser will use this to filter verdict

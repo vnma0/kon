@@ -1,3 +1,5 @@
+"use strict";
+
 class Status {
     constructor() {
         this.ready = false;

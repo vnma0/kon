@@ -1,3 +1,5 @@
+"use strict";
+
 const { readdirSync } = require("fs");
 const { cwd, submitFolder } = require("../config/folder");
 const { isFile } = require("./parser");
