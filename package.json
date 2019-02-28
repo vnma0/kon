@@ -8,7 +8,7 @@
     "build": "del-cli build/ && minify src/ -d build/",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "pkg": "pkg -o dist/kon ."
+    "pkg": "npm run build && pkg -o dist/kon ."
   },
   "pkg": {
     "scripts": [
