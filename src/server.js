@@ -33,6 +33,9 @@ app.use("/check", check);
 app.use("/submit", submit);
 app.use("/get", get);
 app.use("/queue", queue);
+app.all("/*", (req, res) => {
+    res.sendStatus(404);
+});
 
 /**
  * Start server
