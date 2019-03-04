@@ -25,8 +25,8 @@ build_script:
 
     cd dist\
 
-    7z a "wafter-%PLATFORM%-%APPVEYOR_BUILD_VERSION%.zip" kon.exe
+    7z a "kon-%PLATFORM%-%APPVEYOR_BUILD_VERSION%.zip" kon.exe
 test: off
 artifacts:
-- path: dist\wafter-%PLATFORM%-%APPVEYOR_BUILD_VERSION%.zip
-  name: Wafter-%PLATFORM%
+- path: dist\kon-%PLATFORM%-%APPVEYOR_BUILD_VERSION%.zip
+  name: Kon-%PLATFORM%
