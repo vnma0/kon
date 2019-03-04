@@ -1,0 +1,32 @@
+version: 1.{build}
+skip_tags: true
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
+clone_folder: C:\kon
+init:
+- ps: >-
+    Install-Product node $env:nodejs_version $env:platform
+environment:
+  nodejs_version: 10
+platform:
+  - x86
+  - x64
+install:
+- cmd: >-
+    npm install --global npm@latest
+
+    npm install
+build_script:
+- cmd: >-
+    npm run pkg
+
+    cd dist\
+
+    7z a "kon-%PLATFORM%-%APPVEYOR_BUILD_VERSION%.zip" kon.exe
+test: off
+artifacts:
+- path: dist\kon-%PLATFORM%-%APPVEYOR_BUILD_VERSION%.zip
+  name: Kon-%PLATFORM%
