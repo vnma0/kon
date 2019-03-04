@@ -22,10 +22,16 @@ router.post("/", formUpload, validateCode, (req, res) => {
         res.sendStatus(400);
         return;
     }
-    submitToThemis(code, id);
+    submitToThemis(code, id).then(
+        () => {
+            res.sendStatus(200);
+        },
+        () => {
+            res.sendStatus(500);
+        }
+    );
 
     // Response: 200 OK
-    res.sendStatus(200);
 });
 
 module.exports = router;
