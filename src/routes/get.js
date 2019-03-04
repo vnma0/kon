@@ -26,23 +26,26 @@ router.get("/", (req, res) => {
         .map((file) => join(logFolder, file)) // Convert into fullpath
         .filter(isFile); // Filter files only
 
-    // Convert into Promises
-    const promiseLogs = fileList.map(parseLog);
-    if (!promiseLogs.length) {
+    if (!fileList.length) {
         res.send([]);
         return;
     }
+
+    // Convert into Promises
+    const promiseLogs = fileList
+        .map((x) =>
+            parseLog(x)
+                .then(unlinkAsync)
+                .catch(() => null)
+        )
+        .filter((x) => x);
     // Asynchronously parse all log file then send it back as response
     Promise.all(promiseLogs)
         .then((result) => res.json(result))
         .catch((err) => {
+            res.sendStatus(500);
             throw err;
         });
-
-    // TODO: Delete sent logs
-    Promise.all(fileList.map(unlinkAsync)).catch((err) => {
-        throw err;
-    });
 });
 
 module.exports = router;
