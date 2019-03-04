@@ -2,7 +2,7 @@
 
 const express = require("express");
 const { join } = require("path");
-const { readdirSync } = require("fs");
+const { readdirSync, mkdirSync, existsSync } = require("fs");
 
 const { submitFolder, cwd } = require("../config/folder");
 const { parseLog, isFile } = require("../util/parser");
@@ -20,6 +20,7 @@ router.get("/", (req, res) => {
     // TOOO: Seperate session to make the log private
     // Folder contain log
     const logFolder = join(cwd, submitFolder, "Logs");
+    if (!existsSync(logFolder)) mkdirSync(logFolder);
 
     const fileList = readdirSync(logFolder)
         .map((file) => join(logFolder, file)) // Convert into fullpath
