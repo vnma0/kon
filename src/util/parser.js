@@ -191,7 +191,6 @@ async function parseLog(filePath) {
     const rScore = new RegExp(header + "‣Test[0-9]{2}: (.*)", "i");
 
     const findVerdict = lines[0].match(rVerdict);
-    console.log(findVerdict);
     const finalScore = Number(findVerdict[1]);
 
     // CE (Compiler Error) case
