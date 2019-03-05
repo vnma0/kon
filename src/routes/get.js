@@ -32,19 +32,18 @@ router.get("/", (req, res) => {
     }
 
     // Convert into Promises
-    const promiseLogs = fileList
-        .map((x) =>
-            parseLog(x)
-                .then(unlinkAsync)
-                .catch(() => null)
-        )
-        .filter((x) => x);
+    const promiseLogs = fileList.map((log) => parseLog(log).catch(() => null));
     // Asynchronously parse all log file then send it back as response
     Promise.all(promiseLogs)
-        .then((result) => res.json(result))
+        .then((result) => res.json(result.filter((x) => x)))
         .catch((err) => {
             res.sendStatus(500);
-            throw err;
+            console.log(err.message);
+        })
+        .finally(() => {
+            Promise.all(fileList.map(unlinkAsync)).catch((err) => {
+                console.log(err.message);
+            });
         });
 });
 
