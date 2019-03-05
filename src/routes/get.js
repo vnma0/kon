@@ -3,6 +3,7 @@
 const express = require("express");
 const { join } = require("path");
 const { readdirSync, mkdirSync, existsSync } = require("fs");
+const Console = require("console");
 
 const { submitFolder, cwd } = require("../config/folder");
 const { parseLog, isFile } = require("../util/parser");
@@ -33,7 +34,7 @@ router.get("/", (req, res) => {
 
     // Convert into Promises
     const promiseLogs = fileList.map((log) =>
-        parseLog(log).catch((err) => console.log(err))
+        parseLog(log).catch((err) => Console.log(err))
     );
     // Asynchronously parse all log file then send it back as response
     Promise.all(promiseLogs)
@@ -43,7 +44,7 @@ router.get("/", (req, res) => {
         })
         .finally(() => {
             Promise.all(fileList.map(unlinkAsync)).catch((err) => {
-                console.log(err.message);
+                Console.log(err.message);
             });
         });
 });
