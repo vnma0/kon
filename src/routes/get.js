@@ -3,6 +3,7 @@
 const express = require("express");
 const { join } = require("path");
 const { readdirSync, mkdirSync, existsSync } = require("fs");
+const Console = require("console");
 
 const { submitFolder, cwd } = require("../config/folder");
 const { parseLog, isFile } = require("../util/parser");
@@ -26,23 +27,26 @@ router.get("/", (req, res) => {
         .map((file) => join(logFolder, file)) // Convert into fullpath
         .filter(isFile); // Filter files only
 
-    // Convert into Promises
-    const promiseLogs = fileList.map(parseLog);
-    if (!promiseLogs.length) {
+    if (!fileList.length) {
         res.send([]);
         return;
     }
+
+    // Convert into Promises
+    const promiseLogs = fileList.map((log) =>
+        parseLog(log).catch((err) => Console.log(err))
+    );
     // Asynchronously parse all log file then send it back as response
     Promise.all(promiseLogs)
-        .then((result) => res.json(result))
+        .then((result) => res.json(result.filter((x) => x)))
         .catch((err) => {
-            throw err;
+            res.status(500).send(err.message);
+        })
+        .finally(() => {
+            Promise.all(fileList.map(unlinkAsync)).catch((err) => {
+                Console.log(err.message);
+            });
         });
-
-    // TODO: Delete sent logs
-    Promise.all(fileList.map(unlinkAsync)).catch((err) => {
-        throw err;
-    });
 });
 
 module.exports = router;

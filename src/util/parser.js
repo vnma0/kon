@@ -5,7 +5,7 @@ const esr = require("escape-string-regexp");
 const { basename, extname } = require("path");
 const { promisify } = require("util");
 
-const { verdicts } = require("../config/parser");
+const verdicts = require("../config/parser");
 
 /**
  * Call this to check if given filePath is a File in filesystem
