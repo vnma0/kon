@@ -5,7 +5,7 @@ const esr = require("escape-string-regexp");
 const { basename, extname } = require("path");
 const { promisify } = require("util");
 
-const { verdicts } = require("../config/parser");
+const verdicts = require("../config/parser");
 
 /**
  * Call this to check if given filePath is a File in filesystem
@@ -191,6 +191,7 @@ async function parseLog(filePath) {
     const rScore = new RegExp(header + "‣Test[0-9]{2}: (.*)", "i");
 
     const findVerdict = lines[0].match(rVerdict);
+    console.log(findVerdict);
     const finalScore = Number(findVerdict[1]);
 
     // CE (Compiler Error) case
