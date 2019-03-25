@@ -188,7 +188,7 @@ async function parseLog(filePath) {
 
     const header = esr(`${id}‣${problem}`);
     const rVerdict = new RegExp(header + ": (.*)", "i");
-    const rScore = new RegExp(header + "‣(.+?): (.*)", "i");
+    const rScore = new RegExp(header + "‣.+?: (.*)", "i");
 
     const findVerdict = lines[0].match(rVerdict);
     const finalScore = Number(findVerdict[1]);
