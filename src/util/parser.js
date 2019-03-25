@@ -181,14 +181,14 @@ function parseTestCase(rawTestCase) {
 async function parseLog(filePath) {
     if (!isFile(filePath)) return null;
 
-    const file = await promisify(readFile)(filePath, "utf8");
+    const file = await promisify(readFile)(filePath, "utf-8");
     const { id, problem } = logName2Data(basename(filePath));
 
     const lines = file.split(EOL);
 
     const header = esr(`${id}‣${problem}`);
     const rVerdict = new RegExp(header + ": (.*)", "i");
-    const rScore = new RegExp(header + "‣Test[0-9]{2}: (.*)", "i");
+    const rScore = new RegExp(header + "‣.+?: (.*)", "i");
 
     const findVerdict = lines[0].match(rVerdict);
     const finalScore = Number(findVerdict[1]);
@@ -212,11 +212,13 @@ async function parseLog(filePath) {
         2
     );
 
+    const parsedTestSuite = rawTestSuite.map(parseTestCase);
+
     return {
         id,
         problem,
         finalScore,
-        tests: rawTestSuite.map(parseTestCase)
+        tests: parsedTestSuite
     };
 }
 
