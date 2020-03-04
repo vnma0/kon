@@ -73,12 +73,12 @@ const EOL = "\r\n";
  * @param {Array} details Test's details line
  */
 function filterDetails(details) {
-    const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
+    const rTime = /^Thời gian ≈ (.+) giây/;
     let time = 0;
     if (rTime.test(details[0])) {
         let timeStr = rTime.exec(details[0]);
         time = Number(timeStr[1]);
-        details = details.shift();
+        details.shift();
     }
     const { verdict, msg } = parseTestVerdict(details);
     return { time, verdict, msg };
