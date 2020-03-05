@@ -38,18 +38,24 @@ function main() {
                 ws.send(JSON.stringify(result));
             }
         });
-        // TODO: Ignore unrelated files
-        const logWatch = chokidar.watch(logFolder, {
-            depth: 1,
-            persistent: true,
-            awaitWriteFinish: true
-        });
+    };
+    // TODO: Ignore unrelated files
+    const logWatch = chokidar.watch(logFolder, {
+        depth: 1,
+        persistent: true,
+        awaitWriteFinish: true
+    });
+    ws.onopen = _ => {
         logWatch.on("add", async path => {
             const msg = await parseLog(path);
             console.log(`Sending message ${msg.id}`);
             console.log(msg);
             ws.send(JSON.stringify(msg));
         });
+    };
+
+    ws.onclose = _ => {
+        logWatch.close();
     };
 }
 
