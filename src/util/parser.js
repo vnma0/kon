@@ -178,7 +178,7 @@ function parseLogData(data, id, problem) {
         return {
             id,
             totalScore,
-            err: lines.slice(3).join(EOL)
+            msg: lines.slice(3).join(EOL)
         };
 
     const rawTest = lines.slice(lines.findIndex(s => s === "") + 1);
