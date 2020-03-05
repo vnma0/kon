@@ -8,6 +8,6 @@ require("dotenv").config();
 const logRequest = true;
 
 module.exports = {
-    address: process.env.connect,
+    address: process.env.wafter,
     logRequest: logRequest
 };
