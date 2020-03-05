@@ -58,7 +58,7 @@ function logName2Data(filename) {
     // Read data the same way as Themis
     const [id, problem] = filename
         .match(/\[(.+?)\]/g)
-        .map(s => s.slice(1, -1))
+        .map((s) => s.slice(1, -1))
         .slice(-2);
 
     return { id, problem };
@@ -181,7 +181,7 @@ function parseLogData(data, id, problem) {
             msg: lines.slice(3).join(EOL)
         };
 
-    const rawTest = lines.slice(lines.findIndex(s => s === "") + 1);
+    const rawTest = lines.slice(lines.findIndex((s) => s === "") + 1);
     // Convert log into array of testSuite, additionally with score
     const rawTestSuite = rawTest.reduce((chunks, line) => {
         if (rScore.test(line)) {

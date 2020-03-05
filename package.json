@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "bin": "build/index.js",
   "scripts": {
-    "build": "del-cli build/ && minify src/ -d build/",
+    "compile": "npx eslint src/",
+    "build": "npm run compile && del-cli build/ && minify src/ -d build/",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "pkg": "npm run build && pkg -o dist/kon ."

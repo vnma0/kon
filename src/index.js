@@ -17,7 +17,7 @@ function main() {
 
     const ws = new WebSocket(config.address);
 
-    ws.onmessage = msg => {
+    ws.onmessage = (msg) => {
         // Send file to submit folder
         try {
             msg.data = JSON.parse(msg.data);
@@ -29,7 +29,7 @@ function main() {
         const [prob, ext] = sepName(sub.name);
         const file_name = `[${sub.id}][${prob}]${ext}`;
         const code_path = join(submitFolder, file_name);
-        writeFile(code_path, sub.data, { encoding: "base64" }, err => {
+        writeFile(code_path, sub.data, { encoding: "base64" }, (err) => {
             if (err) {
                 const result = {
                     id: sub.id,
@@ -45,8 +45,8 @@ function main() {
         persistent: true,
         awaitWriteFinish: true
     });
-    ws.onopen = _ => {
-        logWatch.on("add", async path => {
+    ws.onopen = (_) => {
+        logWatch.on("add", async (path) => {
             const msg = await parseLog(path);
             console.log(`Sending message ${msg.id}`);
             console.log(msg);
@@ -54,7 +54,7 @@ function main() {
         });
     };
 
-    ws.onclose = _ => {
+    ws.onclose = (_) => {
         logWatch.close();
     };
 }
