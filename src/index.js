@@ -15,6 +15,7 @@ function main() {
     createFolder(submitFolder);
     createFolder(logFolder);
 
+    console.log(`Connecting ${config.address}...`);
     const ws = new WebSocket(config.address);
 
     ws.onmessage = (msg) => {
@@ -56,6 +57,7 @@ function main() {
 
     ws.onclose = (_) => {
         logWatch.close();
+        console.log("Connection closed");
     };
 }
 
