@@ -8,6 +8,9 @@ const folderCfg = require("./config/folder");
 const { sepName, parseLog } = require("./util/parser");
 const createFolder = require("./util/createFolder");
 
+/**
+ * This is the main function. For the sake of clarifying
+ */
 function main() {
     // Generate folder
     const submitFolder = join(folderCfg.cwd, folderCfg.submitFolder);
@@ -15,8 +18,11 @@ function main() {
     createFolder(submitFolder);
     createFolder(logFolder);
 
-    console.log(`Connecting ${config.address}...`);
-    const ws = new WebSocket(config.address);
+    const address = new URL(config.address);
+    address.protocol = "ws";
+
+    console.log(`Connecting Wafter server at ${address.host}...`);
+    const ws = new WebSocket(address.origin + "/kon");
 
     ws.onmessage = (msg) => {
         // Send file to submit folder
@@ -47,6 +53,7 @@ function main() {
         awaitWriteFinish: true
     });
     ws.onopen = (_) => {
+        console.log("Successfully connected to Wafter");
         logWatch.on("add", async (path) => {
             const msg = await parseLog(path);
             console.log(`Sending message ${msg.id}`);
@@ -58,6 +65,12 @@ function main() {
     ws.onclose = (_) => {
         logWatch.close();
         console.log("Connection closed");
+    };
+
+    ws.onerror = (_) => {
+        console.log(
+            `Cannot connect to Wafter. Make sure Wafter is running at ${config.address}`
+        );
     };
 }
 
