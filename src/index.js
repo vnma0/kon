@@ -2,6 +2,7 @@ const { writeFile } = require("fs");
 const { join } = require("path");
 const WebSocket = require("ws");
 const chokidar = require("chokidar");
+const CryptoJS = require("crypto-js");
 
 const config = require("./config/server");
 const folderCfg = require("./config/folder");
@@ -43,18 +44,33 @@ function main() {
         }
         const sub = msg.data;
         console.log(`Recieved submissions ${sub.id}`);
+
+        const decryptMsg = (data, salt) => {
+            const key = CryptoJS.PBKDF2(config.key, salt, {
+                keySize: 256 / 32
+            });
+            return CryptoJS.Rabbit.decrypt(data, key).toString(
+                CryptoJS.enc.Utf8
+            );
+        };
+
         const [prob, ext] = sepName(sub.name);
         const file_name = `[${sub.id}][${prob}]${ext}`;
         const code_path = join(submitFolder, file_name);
-        writeFile(code_path, sub.data, { encoding: "base64" }, (err) => {
-            if (err) {
-                const result = {
-                    id: sub.id,
-                    err: "Server error"
-                };
-                ws.send(JSON.stringify(result));
+        writeFile(
+            code_path,
+            decryptMsg(sub.data, sub.id),
+            { encoding: "base64" },
+            (err) => {
+                if (err) {
+                    const result = {
+                        id: sub.id,
+                        err: "Server error"
+                    };
+                    ws.send(JSON.stringify(result));
+                }
             }
-        });
+        );
     };
     // TODO: Ignore unrelated files
     const logWatch = chokidar.watch(logFolder, {
