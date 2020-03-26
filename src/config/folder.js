@@ -1,7 +1,5 @@
 "use strict";
 
-const { existsSync, mkdirSync } = require("fs");
-
 /**
  * Current Working Directory
  */

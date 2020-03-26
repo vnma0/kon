@@ -24,6 +24,16 @@ function main() {
     console.log(`Connecting Wafter server at ${address.host}...`);
     const ws = new WebSocket(address.origin + "/kon");
 
+    ws.onopen = (_) => {
+        console.log("Successfully connected to Wafter");
+        logWatch.on("add", async (path) => {
+            const msg = await parseLog(path);
+            console.log(`Sending message ${msg.id}`);
+            console.log(msg);
+            ws.send(JSON.stringify(msg));
+        });
+    };
+
     ws.onmessage = (msg) => {
         // Send file to submit folder
         try {
@@ -52,15 +62,6 @@ function main() {
         persistent: true,
         awaitWriteFinish: true
     });
-    ws.onopen = (_) => {
-        console.log("Successfully connected to Wafter");
-        logWatch.on("add", async (path) => {
-            const msg = await parseLog(path);
-            console.log(`Sending message ${msg.id}`);
-            console.log(msg);
-            ws.send(JSON.stringify(msg));
-        });
-    };
 
     ws.onclose = (_) => {
         logWatch.close();
