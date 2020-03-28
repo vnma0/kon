@@ -64,46 +64,24 @@ function logName2Data(filename) {
     return { id, problem };
 }
 
-/**
- * Push array to this function to chunk array into array of subarrays.
- * It is helpful especially when array need to be divided in sections.
- * This one was written due to native preference.
- * @param {Array} array
- * @param {Number} chunkSize
- */
-function chunkArray(array, chunkSize) {
-    var results = [];
-    while (array.length) results.push(array.splice(0, chunkSize));
-
-    return results;
-}
-
 const EOL = "\r\n";
-
-/**
- * @typedef {Object} testAndTime
- * @property {String} test A test case without time string
- * @property {Number} time Extracted time from test case
- */
 
 /**
  * Call this function to seperate time and test.
  * The function was refactored from parseTestCase,
  * in order to keep the code clean.
- * @param {String} test Test's details line
- * @param {Number} time Pass by reference
- * @returns {testAndTime} Extracted test and time from test case
+ * @param {Array} details Test's details line
  */
-function filterTestTime(test, time) {
-    const rTime = new RegExp("^Thời gian ≈ (.+) giây" + esr(EOL), "m");
-    if (rTime.test(test)) {
-        let timeStr = test.split(rTime).filter((s) => s !== "");
-        // Set `time` to time
-        time = Number(timeStr[0]);
-        // Remove timeStr from `details`
-        test = timeStr[1];
+function filterDetails(details) {
+    const rTime = /^Thời gian ≈ (.+) giây/;
+    let time = 0;
+    if (rTime.test(details[0])) {
+        let timeStr = rTime.exec(details[0]);
+        time = Number(timeStr[1]);
+        details.shift();
     }
-    return { test, time };
+    const { verdict, msg } = parseTestVerdict(details);
+    return { time, verdict, msg };
 }
 
 /**
@@ -123,11 +101,11 @@ function parseTestVerdict(rawDetails) {
     const rExitCode = new RegExp(esr("(Hexadecimal: ") + "(.+)" + esr(")"));
 
     const verdict = verdicts[rawDetails[0]] || rawDetails[0];
-    const details = rExitCode.test(rawDetails[1])
+    const msg = rExitCode.test(rawDetails[1])
         ? "Exit code: " + rawDetails[1].match(rExitCode)[1]
         : rawDetails[1] || undefined;
 
-    return { verdict, details };
+    return { verdict, msg };
 }
 
 /**
@@ -135,7 +113,7 @@ function parseTestVerdict(rawDetails) {
  * @property {String} score Final testCase score
  * @property {String} time testCase time
  * @property {String} verdict Final testCase verdict
- * @property {String} [details] Optional testCase details
+ * @property {String} details Optional testCase details
  */
 
 /**
@@ -146,20 +124,13 @@ function parseTestVerdict(rawDetails) {
  * @returns {parsedTestCase} Parsed test case from rawTestCase
  */
 function parseTestCase(rawTestCase) {
-    let [score, test] = rawTestCase;
+    let [score, ...details] = rawTestCase;
     score = Number(score);
-    let time = 0;
-    // Skip unused EOL chararcter
-    test = test.slice(EOL.length);
-    // In case run time is included in `details`
-    ({ test, time } = filterTestTime(test, time));
 
-    // Parse verdict and details if there is
-    const verdict = parseTestVerdict(test.split(EOL));
+    // Seperate run time and other details included in `details`
+    let { time, verdict, msg } = filterDetails(details);
 
-    // if (details) return { score, time, verdict, details };
-    // else return { score, time, verdict };
-    return { score, time, ...verdict };
+    return { score, time, verdict, msg };
 }
 
 /**
@@ -181,43 +152,53 @@ function parseTestCase(rawTestCase) {
 async function parseLog(filePath) {
     if (!isFile(filePath)) return null;
 
-    const file = await promisify(readFile)(filePath, "utf-8");
+    const file_data = await promisify(readFile)(filePath, "utf-8");
     const { id, problem } = logName2Data(basename(filePath));
+    return parseLogData(file_data, id, problem);
+}
 
-    const lines = file.split(EOL);
+/**
+ * This is internal function. Do not touch.
+ * @param {String} data log data
+ * @param {String} id submission id
+ * @param {String} problem problem id
+ */
+function parseLogData(data, id, problem) {
+    const lines = data.split(EOL);
 
     const header = esr(`${id}‣${problem}`);
     const rVerdict = new RegExp(header + ": (.*)", "i");
     const rScore = new RegExp(header + "‣.+?: (.*)", "i");
 
     const findVerdict = lines[0].match(rVerdict);
-    const finalScore = Number(findVerdict[1]);
+    const totalScore = Number(findVerdict[1]);
 
     // CE (Compiler Error) case
-    if (isNaN(finalScore))
+    if (isNaN(totalScore))
         return {
             id,
-            problem,
-            finalScore,
-            details: lines.slice(3).join(EOL)
+            totalScore,
+            msg: lines.slice(3).join(EOL)
         };
 
+    const rawTest = lines.slice(lines.findIndex((s) => s === "") + 1);
     // Convert log into array of testSuite, additionally with score
-    const rawTestSuite = chunkArray(
-        lines
-            .slice(4)
-            .join(EOL)
-            .split(rScore)
-            .filter((s) => s),
-        2
-    );
+    const rawTestSuite = rawTest.reduce((chunks, line) => {
+        if (rScore.test(line)) {
+            // Get score
+            chunks.push([rScore.exec(line)[1]]);
+        } else {
+            // Get other details
+            chunks[chunks.length - 1].push(line);
+        }
+        return chunks;
+    }, []);
 
     const parsedTestSuite = rawTestSuite.map(parseTestCase);
 
     return {
         id,
-        problem,
-        finalScore,
+        totalScore,
         tests: parsedTestSuite
     };
 }

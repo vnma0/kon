@@ -1,7 +1,5 @@
 "use strict";
 
-const { existsSync, mkdirSync } = require("fs");
-
 /**
  * Current Working Directory
  */
@@ -13,11 +11,6 @@ const cwd = process.cwd();
  */
 const submitFolder = "submit";
 
-if (!existsSync(submitFolder)) mkdirSync(submitFolder);
+const logFolder = submitFolder + "/Logs";
 
-/**
- * Folder contains upload files where code is uploaded to
- */
-const uploadFolder = "upload";
-
-module.exports = { cwd, submitFolder, uploadFolder };
+module.exports = { cwd, submitFolder, logFolder };

@@ -3,16 +3,16 @@
 require("dotenv").config();
 
 /**
- * Server port
- */
-const PORT = isNaN(process.env.PORT) ? 30000 : process.env.PORT;
-
-/**
  * Set true to see server log
  */
 const logRequest = true;
 
+// key must be available in order to work
+if (process.env.key === undefined)
+    throw "Environment variable 'key' must be available to run";
+
 module.exports = {
-    PORT: PORT,
+    address: process.env.wafter,
+    key: process.env.key,
     logRequest: logRequest
 };
