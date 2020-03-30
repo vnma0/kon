@@ -49,7 +49,7 @@ function main() {
             const key = CryptoJS.PBKDF2(config.key, salt, {
                 keySize: 256 / 32
             });
-            return CryptoJS.Rabbit.decrypt(data, key).toString(
+            return CryptoJS.AES.decrypt(data, key).toString(
                 CryptoJS.enc.Utf8
             );
         };
