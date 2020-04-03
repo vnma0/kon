@@ -6,9 +6,10 @@
  * If not matching, by default, parser will use raw verdict
  */
 module.exports = {
-    "Kết quả khớp đáp án!": "AC",
-    "Kết quả KHÁC đáp án!": "WA",
-    "Chạy quá thời gian": "TLE",
-    "Chạy sinh lỗi": "RTE",
-    default: "RTE"
+    "Kết quả đúng!": 0b111,
+    "Kết quả khớp đáp án!": 0b111,
+    "Kết quả KHÁC đáp án!": 0b110,
+    "Chạy quá thời gian": 0b100,
+    "Chạy sinh lỗi": 0b000,
+    default: 0b000
 };

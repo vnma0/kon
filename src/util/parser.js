@@ -128,7 +128,7 @@ function filterDetails(details) {
  * @typedef {Object} testCase
  * @property {String} score Final testCase score
  * @property {String} time testCase time
- * @property {String} verdict Final testCase verdict
+ * @property {Number} verdict Final testCase verdict
  * @property {String} details Optional testCase details
  */
 
@@ -181,6 +181,7 @@ async function parseLog(filePath) {
  */
 function parseLogData(data, id, problem) {
     let tests = [];
+    let verdict = 0;
 
     const lines = data.split(EOL);
 
@@ -213,10 +214,14 @@ function parseLogData(data, id, problem) {
         }, []);
 
         tests = rawTestSuite.map(parseTestCase);
+
+        verdict =
+            (1 << 3) + tests.map((x) => x.verdict).reduce((a, b) => a & b);
     }
 
     return {
         id,
+        verdict,
         totalScore,
         msg,
         tests
