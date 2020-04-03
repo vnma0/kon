@@ -9,5 +9,6 @@ module.exports = {
     "Kết quả khớp đáp án!": "AC",
     "Kết quả KHÁC đáp án!": "WA",
     "Chạy quá thời gian": "TLE",
-    "Chạy sinh lỗi": "RTE"
+    "Chạy sinh lỗi": "RTE",
+    default: "RTE"
 };
