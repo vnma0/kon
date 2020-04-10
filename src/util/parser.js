@@ -128,7 +128,7 @@ function filterDetails(details) {
  * @typedef {Object} testCase
  * @property {String} score Final testCase score
  * @property {String} time testCase time
- * @property {String} verdict Final testCase verdict
+ * @property {Number} verdict Final testCase verdict
  * @property {String} details Optional testCase details
  */
 
