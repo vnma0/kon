@@ -181,7 +181,6 @@ async function parseLog(filePath) {
  */
 function parseLogData(data, id, problem) {
     let tests = [];
-    // let verdict = 0;
 
     const lines = data.split(EOL);
 
@@ -214,9 +213,6 @@ function parseLogData(data, id, problem) {
         }, []);
 
         tests = rawTestSuite.map(parseTestCase);
-
-        // verdict =
-        //     (1 << 3) + tests.map((x) => x.verdict).reduce((a, b) => a & b);
     }
 
     return {
