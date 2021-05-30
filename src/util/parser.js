@@ -119,9 +119,9 @@ function filterDetails(details) {
         .join(EOL);
 
     // Filter Verdict
-    const verdBit = verdictDict[details[0]] || verdictDict["default"];
+    const verdict = verdictDict[details[0]] || verdictDict["default"];
 
-    return { time, verdict: details[0], verdBit, msg };
+    return { time, verdict: verdict.text, verdBit: verdict.bit, msg };
 }
 
 /**
