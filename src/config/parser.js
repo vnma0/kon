@@ -3,17 +3,36 @@
 /**
  * Verdict dictionary.
  * Parser will use this to filter verdict
- * If not matching, by default, parser will use raw verdict
  * Below is logic bits explanation
- * 1st      is runnable ?
- * 2nd      is run in time ?
- * 3rd      is output correct ?
+ * 1st      have correct output?
+ * 2nd      can run in time?
+ * 3rd      can run?
+ * 4th      can compile?
+ * Reverse order for future expansion
  */
 module.exports = {
-    "Kết quả đúng!": 0b111,
-    "Kết quả khớp đáp án!": 0b111,
-    "Kết quả KHÁC đáp án!": 0b110,
-    "Chạy quá thời gian": 0b100,
-    "Chạy sinh lỗi": 0b000,
-    default: 0b000
+    "Kết quả đúng!": {
+        bit: 0b0000,
+        text: "AC",
+    },
+    "Kết quả khớp đáp án!": {
+        bit: 0b0000,
+        text: "AC",
+    },
+    "Kết quả KHÁC đáp án!": {
+        bit: 0b1000,
+        text: "WA",
+    },
+    "Chạy quá thời gian": {
+        bit: 0b1100,
+        text: "TLE",
+    },
+    "Chạy sinh lỗi": {
+        bit: 0b1110,
+        text: "RTE",
+    },
+    default: {
+        bit: -1,
+        text: "CE",
+    },
 };

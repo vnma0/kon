@@ -70,6 +70,7 @@ const EOL = "\r\n";
  * @typedef {Object} testDetails
  * @property {String} time Test case verdict
  * @property {String} verdict Test verdict
+ * @property {Number} verdBit Test verdict in bitmask
  * @property {String} msg Extra message from Themis and compiler
  */
 
@@ -118,17 +119,17 @@ function filterDetails(details) {
         .join(EOL);
 
     // Filter Verdict
-    const verdict =
-        verdictDict[details[details.length - 1]] || verdictDict["default"];
+    const verdict = verdictDict[details[0]] || verdictDict["default"];
 
-    return { time, verdict, msg };
+    return { time, verdict: verdict.text, verdBit: verdict.bit, msg };
 }
 
 /**
  * @typedef {Object} testCase
  * @property {String} score Final testCase score
  * @property {String} time testCase time
- * @property {Number} verdict Final testCase verdict
+ * @property {String} verdict Final testCase verdict
+ * @property {Number} verdBit Final testCase verdict in Bitmask
  * @property {String} details Optional testCase details
  */
 
@@ -144,9 +145,8 @@ function parseTestCase(rawTestCase) {
     score = Number(score);
 
     // Seperate run time and other details included in `details`
-    let { time, verdict, msg } = filterDetails(details);
 
-    return { score, time, verdict, msg };
+    return { score, ...filterDetails(details) };
 }
 
 /**
@@ -219,12 +219,12 @@ function parseLogData(data, id, problem) {
         id,
         totalScore,
         msg,
-        tests
+        tests,
     };
 }
 
 module.exports = {
     isFile,
     sepName,
-    parseLog
+    parseLog,
 };
