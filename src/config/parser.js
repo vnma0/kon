@@ -4,10 +4,10 @@
  * Verdict dictionary.
  * Parser will use this to filter verdict
  * Below is logic bits explanation
- * 1st      have correct output?
- * 2nd      can run in time?
- * 3rd      can run?
- * 4th      can compile?
+ * 1st      have output problem?
+ * 2nd      run out of time?
+ * 3rd      runtime error?
+ * 4th      compile error?
  * Reverse order for future expansion
  */
 module.exports = {
