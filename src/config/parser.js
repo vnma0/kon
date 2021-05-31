@@ -7,32 +7,31 @@
  * 1st      have output problem?
  * 2nd      run out of time?
  * 3rd      runtime error?
- * 4th      critical error?
  * Reverse order for future expansion
  */
 module.exports = {
     "Kết quả đúng!": {
-        bit: 0b0000,
+        bit: 0b000,
         text: "AC",
     },
     "Kết quả khớp đáp án!": {
-        bit: 0b0000,
+        bit: 0b000,
         text: "AC",
     },
     "Kết quả KHÁC đáp án!": {
-        bit: 0b1000,
+        bit: 0b100,
         text: "WA",
     },
     "Chạy quá thời gian": {
-        bit: 0b1100,
+        bit: 0b010,
         text: "TLE",
     },
     "Chạy sinh lỗi": {
-        bit: 0b1110,
+        bit: 0b001,
         text: "RTE",
     },
     default: {
         bit: -1,
-        text: "Critical Error",
+        text: "Unknown Error",
     },
 };
