@@ -1,0 +1,51 @@
+﻿AWYShFz3Z9OVo4iu‣LARES: ℱ Dịch lỗi
+LARES.cpp
+"C:\Program Files (x86)\Themis\gcc\bin\g++.exe" -std=c++14 "LARES.cpp" -pipe -O2 -s -static -lm -x c++ -o"LARES.exe" -Wl,--stack,66060288|@WorkDir=C:\ProgramData\ThemisWorkSpace\WaitRoom41303\
+LARES.cpp: In function 'int main()':
+LARES.cpp:13:29: error: no matching function for call to 'min(int, short int&)'
+     cout << min(min(m / 2, n), (m + n - k) / 3);
+                             ^
+In file included from c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\bits\char_traits.h:39,
+                 from c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\ios:40,
+                 from c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\ostream:38,
+                 from c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\iostream:39,
+                 from LARES.cpp:1:
+c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\bits\stl_algobase.h:195:5: note: candidate: 'template<class _Tp> constexpr const _Tp& std::min(const _Tp&, const _Tp&)'
+     min(const _Tp& __a, const _Tp& __b)
+     ^~~
+c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\bits\stl_algobase.h:195:5: note:   template argument deduction/substitution failed:
+LARES.cpp:13:29: note:   deduced conflicting types for parameter 'const _Tp' ('int' and 'short int')
+     cout << min(min(m / 2, n), (m + n - k) / 3);
+                             ^
+In file included from c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\bits\char_traits.h:39,
+                 from c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\ios:40,
+                 from c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\ostream:38,
+                 from c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\iostream:39,
+                 from LARES.cpp:1:
+c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\bits\stl_algobase.h:243:5: note: candidate: 'template<class _Tp, class _Compare> constexpr const _Tp& std::min(const _Tp&, const _Tp&, _Compare)'
+     min(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^~~
+c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\bits\stl_algobase.h:243:5: note:   template argument deduction/substitution failed:
+LARES.cpp:13:29: note:   deduced conflicting types for parameter 'const _Tp' ('int' and 'short int')
+     cout << min(min(m / 2, n), (m + n - k) / 3);
+                             ^
+In file included from c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\algorithm:62,
+                 from LARES.cpp:2:
+c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\bits\stl_algo.h:3450:5: note: candidate: 'template<class _Tp> constexpr _Tp std::min(std::initializer_list<_Tp>)'
+     min(initializer_list<_Tp> __l)
+     ^~~
+c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\bits\stl_algo.h:3450:5: note:   template argument deduction/substitution failed:
+LARES.cpp:13:29: note:   mismatched types 'std::initializer_list<_Tp>' and 'int'
+     cout << min(min(m / 2, n), (m + n - k) / 3);
+                             ^
+In file included from c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\algorithm:62,
+                 from LARES.cpp:2:
+c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\bits\stl_algo.h:3456:5: note: candidate: 'template<class _Tp, class _Compare> constexpr _Tp std::min(std::initializer_list<_Tp>, _Compare)'
+     min(initializer_list<_Tp> __l, _Compare __comp)
+     ^~~
+c:\program files (x86)\themis\gcc\lib\gcc\mingw32\8.2.0\include\c++\bits\stl_algo.h:3456:5: note:   template argument deduction/substitution failed:
+LARES.cpp:13:29: note:   mismatched types 'std::initializer_list<_Tp>' and 'int'
+     cout << min(min(m / 2, n), (m + n - k) / 3);
+                             ^
+Dịch lỗi!
+

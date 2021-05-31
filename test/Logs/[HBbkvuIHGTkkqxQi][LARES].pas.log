@@ -1,0 +1,40 @@
+﻿HBbkvuIHGTkkqxQi‣LARES: 0.00
+LARES.pas
+"C:\Program Files (x86)\Themis\fpc\bin\i386-win32\fpc.exe" -o"LARES.exe" -O2 -XS -Sg -Cs66060288 "LARES.pas"|@WorkDir=C:\ProgramData\ThemisWorkSpace\WaitRoom58767\
+Free Pascal Compiler version 3.0.4 [2017/10/06] for i386
+Copyright (c) 1993-2017 by Florian Klaempfl and others
+Target OS: Win32 for i386
+Compiling LARES.pas
+LARES.pas(10,3) Note: Local variable "a" is assigned but never used
+Linking LARES.exe
+34 lines compiled, 0.2 sec, 27824 bytes code, 1284 bytes data
+1 note(s) issued
+Dịch thành công.
+
+HBbkvuIHGTkkqxQi‣LARES‣Test01: 0.00
+Chạy sinh lỗi
+Command: "C:\ProgramData\ThemisWorkSpace\ContestRoom52781\LARES.exe" terminated with exit code: 3221225773 (Hexadecimal: C000012D)
+HBbkvuIHGTkkqxQi‣LARES‣Test02: 0.00
+Chạy sinh lỗi
+Command: "C:\ProgramData\ThemisWorkSpace\ContestRoom38139\LARES.exe" terminated with exit code: 3221225773 (Hexadecimal: C000012D)
+HBbkvuIHGTkkqxQi‣LARES‣Test03: 0.00
+Chạy sinh lỗi
+Command: "C:\ProgramData\ThemisWorkSpace\ContestRoom10288\LARES.exe" terminated with exit code: 3221225773 (Hexadecimal: C000012D)
+HBbkvuIHGTkkqxQi‣LARES‣Test04: 0.00
+Chạy sinh lỗi
+Command: "C:\ProgramData\ThemisWorkSpace\ContestRoom46684\LARES.exe" terminated with exit code: 3221225773 (Hexadecimal: C000012D)
+HBbkvuIHGTkkqxQi‣LARES‣Test05: 0.00
+Chạy sinh lỗi
+Command: "C:\ProgramData\ThemisWorkSpace\ContestRoom46708\LARES.exe" terminated with exit code: 3221225773 (Hexadecimal: C000012D)
+HBbkvuIHGTkkqxQi‣LARES‣Test06: 0.00
+Chạy sinh lỗi
+Command: "C:\ProgramData\ThemisWorkSpace\ContestRoom9921\LARES.exe" terminated with exit code: 3221225773 (Hexadecimal: C000012D)
+HBbkvuIHGTkkqxQi‣LARES‣Test07: 0.00
+Chạy sinh lỗi
+Command: "C:\ProgramData\ThemisWorkSpace\ContestRoom65456\LARES.exe" terminated with exit code: 3221225773 (Hexadecimal: C000012D)
+HBbkvuIHGTkkqxQi‣LARES‣Test08: 0.00
+Chạy sinh lỗi
+Command: "C:\ProgramData\ThemisWorkSpace\ContestRoom3604\LARES.exe" terminated with exit code: 3221225773 (Hexadecimal: C000012D)
+HBbkvuIHGTkkqxQi‣LARES‣Test09: 0.00
+Chạy sinh lỗi
+Command: "C:\ProgramData\ThemisWorkSpace\ContestRoom26406\LARES.exe" terminated with exit code: 3221225773 (Hexadecimal: C000012D)

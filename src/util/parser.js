@@ -200,6 +200,7 @@ function parseLogData(data, id, problem) {
         totalScore = null;
     } else {
         const rawTest = lines.slice(border + 2);
+        rawTest.pop();
         // Convert log into array of testSuite, additionally with score
         const rawTestSuite = rawTest.reduce((chunks, line) => {
             if (rScore.test(line)) {
