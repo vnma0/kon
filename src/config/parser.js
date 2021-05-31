@@ -7,7 +7,7 @@
  * 1st      have output problem?
  * 2nd      run out of time?
  * 3rd      runtime error?
- * 4th      compile error?
+ * 4th      critical error?
  * Reverse order for future expansion
  */
 module.exports = {
@@ -33,6 +33,6 @@ module.exports = {
     },
     default: {
         bit: -1,
-        text: "CE",
+        text: "Critical Error",
     },
 };
