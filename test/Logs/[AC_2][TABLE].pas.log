@@ -1,0 +1,231 @@
+﻿AC_2‣TABLE: 40.00
+TABLE.pas
+"C:\Program Files (x86)\Themis\fpc\bin\i386-win32\fpc.exe" -o"TABLE.exe" -O2 -XS -Sg -Cs66060288 "TABLE.pas"|@WorkDir=C:\ProgramData\ThemisWorkSpace\WaitRoom42165\
+Free Pascal Compiler version 3.0.4 [2017/10/06] for i386
+Copyright (c) 1993-2017 by Florian Klaempfl and others
+Target OS: Win32 for i386
+Compiling TABLE.pas
+Linking TABLE.exe
+33 lines compiled, 0.1 sec, 28576 bytes code, 1284 bytes data
+Dịch thành công.
+
+AC_2‣TABLE‣Test01: 2.00
+Thời gian ≈ 0.053627000 giây
+Kiểm tra kết quả:
+  * n = 2
+  * Đáp án: 1 x 2
+    . Diện tích = 2
+    . Chu vi = 6
+  * Thí sinh: 1 x 2
+    . Diện tích = 2
+    . Chu vi = 6
+Kết quả đúng!
+AC_2‣TABLE‣Test02: 2.00
+Thời gian ≈ 0.058326600 giây
+Kiểm tra kết quả:
+  * n = 4
+  * Đáp án: 2 x 2
+    . Diện tích = 4
+    . Chu vi = 8
+  * Thí sinh: 2 x 2
+    . Diện tích = 4
+    . Chu vi = 8
+Kết quả đúng!
+AC_2‣TABLE‣Test03: 2.00
+Thời gian ≈ 0.053352200 giây
+Kiểm tra kết quả:
+  * n = 15
+  * Đáp án: 4 x 4
+    . Diện tích = 16
+    . Chu vi = 16
+  * Thí sinh: 4 x 4
+    . Diện tích = 16
+    . Chu vi = 16
+Kết quả đúng!
+AC_2‣TABLE‣Test04: 2.00
+Thời gian ≈ 0.051472300 giây
+Kiểm tra kết quả:
+  * n = 100
+  * Đáp án: 10 x 10
+    . Diện tích = 100
+    . Chu vi = 40
+  * Thí sinh: 10 x 10
+    . Diện tích = 100
+    . Chu vi = 40
+Kết quả đúng!
+AC_2‣TABLE‣Test05: 2.00
+Thời gian ≈ 0.052160400 giây
+Kiểm tra kết quả:
+  * n = 55555
+  * Đáp án: 236 x 236
+    . Diện tích = 55696
+    . Chu vi = 944
+  * Thí sinh: 236 x 236
+    . Diện tích = 55696
+    . Chu vi = 944
+Kết quả đúng!
+AC_2‣TABLE‣Test06: 2.00
+Thời gian ≈ 0.052702000 giây
+Kiểm tra kết quả:
+  * n = 666666
+  * Đáp án: 816 x 817
+    . Diện tích = 666672
+    . Chu vi = 3266
+  * Thí sinh: 816 x 817
+    . Diện tích = 666672
+    . Chu vi = 3266
+Kết quả đúng!
+AC_2‣TABLE‣Test07: 2.00
+Thời gian ≈ 0.051376500 giây
+Kiểm tra kết quả:
+  * n = 7777777
+  * Đáp án: 2789 x 2789
+    . Diện tích = 7778521
+    . Chu vi = 11156
+  * Thí sinh: 2789 x 2789
+    . Diện tích = 7778521
+    . Chu vi = 11156
+Kết quả đúng!
+AC_2‣TABLE‣Test08: 2.00
+Thời gian ≈ 0.051286600 giây
+Kiểm tra kết quả:
+  * n = 88888888
+  * Đáp án: 9428 x 9429
+    . Diện tích = 88896612
+    . Chu vi = 37714
+  * Thí sinh: 9428 x 9429
+    . Diện tích = 88896612
+    . Chu vi = 37714
+Kết quả đúng!
+AC_2‣TABLE‣Test09: 2.00
+Thời gian ≈ 0.051996000 giây
+Kiểm tra kết quả:
+  * n = 999999999
+  * Đáp án: 31623 x 31623
+    . Diện tích = 1000014129
+    . Chu vi = 126492
+  * Thí sinh: 31623 x 31623
+    . Diện tích = 1000014129
+    . Chu vi = 126492
+Kết quả đúng!
+AC_2‣TABLE‣Test10: 2.00
+Thời gian ≈ 0.051579700 giây
+Kiểm tra kết quả:
+  * n = 2147483647
+  * Đáp án: 46341 x 46341
+    . Diện tích = 2147488281
+    . Chu vi = 185364
+  * Thí sinh: 46341 x 46341
+    . Diện tích = 2147488281
+    . Chu vi = 185364
+Kết quả đúng!
+AC_2‣TABLE‣Test11: 2.00
+Thời gian ≈ 0.054711100 giây
+Kiểm tra kết quả:
+  * n = 1208482480
+  * Đáp án: 34763 x 34764
+    . Diện tích = 1208500932
+    . Chu vi = 139054
+  * Thí sinh: 34763 x 34764
+    . Diện tích = 1208500932
+    . Chu vi = 139054
+Kết quả đúng!
+AC_2‣TABLE‣Test12: 2.00
+Thời gian ≈ 0.052551900 giây
+Kiểm tra kết quả:
+  * n = 225292622
+  * Đáp án: 15010 x 15010
+    . Diện tích = 225300100
+    . Chu vi = 60040
+  * Thí sinh: 15010 x 15010
+    . Diện tích = 225300100
+    . Chu vi = 60040
+Kết quả đúng!
+AC_2‣TABLE‣Test13: 2.00
+Thời gian ≈ 0.052234800 giây
+Kiểm tra kết quả:
+  * n = 1684977449
+  * Đáp án: 41048 x 41049
+    . Diện tích = 1684979352
+    . Chu vi = 164194
+  * Thí sinh: 41048 x 41049
+    . Diện tích = 1684979352
+    . Chu vi = 164194
+Kết quả đúng!
+AC_2‣TABLE‣Test14: 2.00
+Thời gian ≈ 0.053152500 giây
+Kiểm tra kết quả:
+  * n = 1765095580
+  * Đáp án: 42013 x 42014
+    . Diện tích = 1765134182
+    . Chu vi = 168054
+  * Thí sinh: 42013 x 42014
+    . Diện tích = 1765134182
+    . Chu vi = 168054
+Kết quả đúng!
+AC_2‣TABLE‣Test15: 2.00
+Thời gian ≈ 0.058738800 giây
+Kiểm tra kết quả:
+  * n = 979221255
+  * Đáp án: 31293 x 31293
+    . Diện tích = 979251849
+    . Chu vi = 125172
+  * Thí sinh: 31293 x 31293
+    . Diện tích = 979251849
+    . Chu vi = 125172
+Kết quả đúng!
+AC_2‣TABLE‣Test16: 2.00
+Thời gian ≈ 0.052008300 giây
+Kiểm tra kết quả:
+  * n = 1168759164
+  * Đáp án: 34187 x 34188
+    . Diện tích = 1168785156
+    . Chu vi = 136750
+  * Thí sinh: 34187 x 34188
+    . Diện tích = 1168785156
+    . Chu vi = 136750
+Kết quả đúng!
+AC_2‣TABLE‣Test17: 2.00
+Thời gian ≈ 0.051098600 giây
+Kiểm tra kết quả:
+  * n = 279014230
+  * Đáp án: 16704 x 16704
+    . Diện tích = 279023616
+    . Chu vi = 66816
+  * Thí sinh: 16704 x 16704
+    . Diện tích = 279023616
+    . Chu vi = 66816
+Kết quả đúng!
+AC_2‣TABLE‣Test18: 2.00
+Thời gian ≈ 0.052248400 giây
+Kiểm tra kết quả:
+  * n = 574308047
+  * Đáp án: 23965 x 23965
+    . Diện tích = 574321225
+    . Chu vi = 95860
+  * Thí sinh: 23965 x 23965
+    . Diện tích = 574321225
+    . Chu vi = 95860
+Kết quả đúng!
+AC_2‣TABLE‣Test19: 2.00
+Thời gian ≈ 0.052650500 giây
+Kiểm tra kết quả:
+  * n = 1213640574
+  * Đáp án: 34837 x 34838
+    . Diện tích = 1213651406
+    . Chu vi = 139350
+  * Thí sinh: 34837 x 34838
+    . Diện tích = 1213651406
+    . Chu vi = 139350
+Kết quả đúng!
+AC_2‣TABLE‣Test20: 2.00
+Thời gian ≈ 0.053546100 giây
+Kiểm tra kết quả:
+  * n = 1634501803
+  * Đáp án: 40429 x 40429
+    . Diện tích = 1634504041
+    . Chu vi = 161716
+  * Thí sinh: 40429 x 40429
+    . Diện tích = 1634504041
+    . Chu vi = 161716
+Kết quả đúng!

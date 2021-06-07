@@ -119,7 +119,8 @@ function filterDetails(details) {
         .join(EOL);
 
     // Filter Verdict
-    const verdict = verdictDict[details[0]] || verdictDict["default"];
+    const verdict =
+        verdictDict[details[details.length - 1]] || verdictDict["default"];
 
     return { time, verdict: verdict.text, verdBit: verdict.bit, msg };
 }
@@ -200,6 +201,7 @@ function parseLogData(data, id, problem) {
         totalScore = null;
     } else {
         const rawTest = lines.slice(border + 2);
+        rawTest.pop();
         // Convert log into array of testSuite, additionally with score
         const rawTestSuite = rawTest.reduce((chunks, line) => {
             if (rScore.test(line)) {

@@ -1,0 +1,32 @@
+﻿WA‣LARES: 17.00
+LARES.cpp
+"C:\Program Files (x86)\Themis\gcc\bin\g++.exe" -std=c++14 "LARES.cpp" -pipe -O2 -s -static -lm -x c++ -o"LARES.exe" -Wl,--stack,66060288|@WorkDir=C:\ProgramData\ThemisWorkSpace\WaitRoom32736\
+Dịch thành công.
+
+WA‣LARES‣Test01: 0.00
+Thời gian ≈ 0.045427600 giây
+Kết quả KHÁC đáp án!
+WA‣LARES‣Test02: 0.00
+Thời gian ≈ 0.044679000 giây
+Kết quả KHÁC đáp án!
+WA‣LARES‣Test03: 5.00
+Thời gian ≈ 0.044792300 giây
+Kết quả khớp đáp án!
+WA‣LARES‣Test04: 3.00
+Thời gian ≈ 0.044855200 giây
+Kết quả khớp đáp án!
+WA‣LARES‣Test05: 3.00
+Thời gian ≈ 0.046065800 giây
+Kết quả khớp đáp án!
+WA‣LARES‣Test06: 3.00
+Thời gian ≈ 0.045344000 giây
+Kết quả khớp đáp án!
+WA‣LARES‣Test07: 0.00
+Thời gian ≈ 0.046280600 giây
+Kết quả KHÁC đáp án!
+WA‣LARES‣Test08: 0.00
+Thời gian ≈ 0.046352600 giây
+Kết quả KHÁC đáp án!
+WA‣LARES‣Test09: 3.00
+Thời gian ≈ 0.047202100 giây
+Kết quả khớp đáp án!
