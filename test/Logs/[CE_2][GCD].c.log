@@ -1,4 +1,4 @@
-﻿5NGO1Jv9JBL4Qmu5‣GCD: ℱ Dịch lỗi
+﻿CE_2‣GCD: ℱ Dịch lỗi
 GCD.c
 "C:\Program Files (x86)\Themis\gcc\bin\gcc.exe" -std=c11 "GCD.c" -pipe -O2 -s -static -lm -x c -o"GCD.exe" -Wl,--stack,66060288|@WorkDir=C:\ProgramData\ThemisWorkSpace\WaitRoom33427\
 GCD.c:1:10: fatal error: iostream: No such file or directory

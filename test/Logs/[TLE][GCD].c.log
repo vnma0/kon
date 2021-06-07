@@ -1,25 +1,25 @@
-﻿kpZJt6w72B0Klr94‣GCD: 0.00
+﻿TLE‣GCD: 0.00
 GCD.c
 "C:\Program Files (x86)\Themis\gcc\bin\gcc.exe" -std=c11 "GCD.c" -pipe -O2 -s -static -lm -x c -o"GCD.exe" -Wl,--stack,66060288|@WorkDir=C:\ProgramData\ThemisWorkSpace\WaitRoom62192\
 Dịch thành công.
 
-kpZJt6w72B0Klr94‣GCD‣Test01: 0.00
+TLE‣GCD‣Test01: 0.00
 Chạy quá thời gian
-kpZJt6w72B0Klr94‣GCD‣Test02: 0.00
+TLE‣GCD‣Test02: 0.00
 Chạy quá thời gian
-kpZJt6w72B0Klr94‣GCD‣Test03: 0.00
+TLE‣GCD‣Test03: 0.00
 Chạy quá thời gian
-kpZJt6w72B0Klr94‣GCD‣Test04: 0.00
+TLE‣GCD‣Test04: 0.00
 Chạy quá thời gian
-kpZJt6w72B0Klr94‣GCD‣Test05: 0.00
+TLE‣GCD‣Test05: 0.00
 Chạy quá thời gian
-kpZJt6w72B0Klr94‣GCD‣Test06: 0.00
+TLE‣GCD‣Test06: 0.00
 Chạy quá thời gian
-kpZJt6w72B0Klr94‣GCD‣Test07: 0.00
+TLE‣GCD‣Test07: 0.00
 Chạy quá thời gian
-kpZJt6w72B0Klr94‣GCD‣Test08: 0.00
+TLE‣GCD‣Test08: 0.00
 Chạy quá thời gian
-kpZJt6w72B0Klr94‣GCD‣Test09: 0.00
+TLE‣GCD‣Test09: 0.00
 Chạy quá thời gian
-kpZJt6w72B0Klr94‣GCD‣Test10: 0.00
+TLE‣GCD‣Test10: 0.00
 Chạy quá thời gian

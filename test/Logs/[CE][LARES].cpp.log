@@ -1,4 +1,4 @@
-﻿AWYShFz3Z9OVo4iu‣LARES: ℱ Dịch lỗi
+﻿CE‣LARES: ℱ Dịch lỗi
 LARES.cpp
 "C:\Program Files (x86)\Themis\gcc\bin\g++.exe" -std=c++14 "LARES.cpp" -pipe -O2 -s -static -lm -x c++ -o"LARES.exe" -Wl,--stack,66060288|@WorkDir=C:\ProgramData\ThemisWorkSpace\WaitRoom41303\
 LARES.cpp: In function 'int main()':

@@ -1,4 +1,4 @@
-﻿glyknA2ymZXI1G6K‣TABLE: 40.00
+﻿AC_2‣TABLE: 40.00
 TABLE.pas
 "C:\Program Files (x86)\Themis\fpc\bin\i386-win32\fpc.exe" -o"TABLE.exe" -O2 -XS -Sg -Cs66060288 "TABLE.pas"|@WorkDir=C:\ProgramData\ThemisWorkSpace\WaitRoom42165\
 Free Pascal Compiler version 3.0.4 [2017/10/06] for i386
@@ -9,7 +9,7 @@ Linking TABLE.exe
 33 lines compiled, 0.1 sec, 28576 bytes code, 1284 bytes data
 Dịch thành công.
 
-glyknA2ymZXI1G6K‣TABLE‣Test01: 2.00
+AC_2‣TABLE‣Test01: 2.00
 Thời gian ≈ 0.053627000 giây
 Kiểm tra kết quả:
   * n = 2
@@ -20,7 +20,7 @@ Kiểm tra kết quả:
     . Diện tích = 2
     . Chu vi = 6
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test02: 2.00
+AC_2‣TABLE‣Test02: 2.00
 Thời gian ≈ 0.058326600 giây
 Kiểm tra kết quả:
   * n = 4
@@ -31,7 +31,7 @@ Kiểm tra kết quả:
     . Diện tích = 4
     . Chu vi = 8
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test03: 2.00
+AC_2‣TABLE‣Test03: 2.00
 Thời gian ≈ 0.053352200 giây
 Kiểm tra kết quả:
   * n = 15
@@ -42,7 +42,7 @@ Kiểm tra kết quả:
     . Diện tích = 16
     . Chu vi = 16
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test04: 2.00
+AC_2‣TABLE‣Test04: 2.00
 Thời gian ≈ 0.051472300 giây
 Kiểm tra kết quả:
   * n = 100
@@ -53,7 +53,7 @@ Kiểm tra kết quả:
     . Diện tích = 100
     . Chu vi = 40
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test05: 2.00
+AC_2‣TABLE‣Test05: 2.00
 Thời gian ≈ 0.052160400 giây
 Kiểm tra kết quả:
   * n = 55555
@@ -64,7 +64,7 @@ Kiểm tra kết quả:
     . Diện tích = 55696
     . Chu vi = 944
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test06: 2.00
+AC_2‣TABLE‣Test06: 2.00
 Thời gian ≈ 0.052702000 giây
 Kiểm tra kết quả:
   * n = 666666
@@ -75,7 +75,7 @@ Kiểm tra kết quả:
     . Diện tích = 666672
     . Chu vi = 3266
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test07: 2.00
+AC_2‣TABLE‣Test07: 2.00
 Thời gian ≈ 0.051376500 giây
 Kiểm tra kết quả:
   * n = 7777777
@@ -86,7 +86,7 @@ Kiểm tra kết quả:
     . Diện tích = 7778521
     . Chu vi = 11156
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test08: 2.00
+AC_2‣TABLE‣Test08: 2.00
 Thời gian ≈ 0.051286600 giây
 Kiểm tra kết quả:
   * n = 88888888
@@ -97,7 +97,7 @@ Kiểm tra kết quả:
     . Diện tích = 88896612
     . Chu vi = 37714
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test09: 2.00
+AC_2‣TABLE‣Test09: 2.00
 Thời gian ≈ 0.051996000 giây
 Kiểm tra kết quả:
   * n = 999999999
@@ -108,7 +108,7 @@ Kiểm tra kết quả:
     . Diện tích = 1000014129
     . Chu vi = 126492
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test10: 2.00
+AC_2‣TABLE‣Test10: 2.00
 Thời gian ≈ 0.051579700 giây
 Kiểm tra kết quả:
   * n = 2147483647
@@ -119,7 +119,7 @@ Kiểm tra kết quả:
     . Diện tích = 2147488281
     . Chu vi = 185364
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test11: 2.00
+AC_2‣TABLE‣Test11: 2.00
 Thời gian ≈ 0.054711100 giây
 Kiểm tra kết quả:
   * n = 1208482480
@@ -130,7 +130,7 @@ Kiểm tra kết quả:
     . Diện tích = 1208500932
     . Chu vi = 139054
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test12: 2.00
+AC_2‣TABLE‣Test12: 2.00
 Thời gian ≈ 0.052551900 giây
 Kiểm tra kết quả:
   * n = 225292622
@@ -141,7 +141,7 @@ Kiểm tra kết quả:
     . Diện tích = 225300100
     . Chu vi = 60040
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test13: 2.00
+AC_2‣TABLE‣Test13: 2.00
 Thời gian ≈ 0.052234800 giây
 Kiểm tra kết quả:
   * n = 1684977449
@@ -152,7 +152,7 @@ Kiểm tra kết quả:
     . Diện tích = 1684979352
     . Chu vi = 164194
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test14: 2.00
+AC_2‣TABLE‣Test14: 2.00
 Thời gian ≈ 0.053152500 giây
 Kiểm tra kết quả:
   * n = 1765095580
@@ -163,7 +163,7 @@ Kiểm tra kết quả:
     . Diện tích = 1765134182
     . Chu vi = 168054
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test15: 2.00
+AC_2‣TABLE‣Test15: 2.00
 Thời gian ≈ 0.058738800 giây
 Kiểm tra kết quả:
   * n = 979221255
@@ -174,7 +174,7 @@ Kiểm tra kết quả:
     . Diện tích = 979251849
     . Chu vi = 125172
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test16: 2.00
+AC_2‣TABLE‣Test16: 2.00
 Thời gian ≈ 0.052008300 giây
 Kiểm tra kết quả:
   * n = 1168759164
@@ -185,7 +185,7 @@ Kiểm tra kết quả:
     . Diện tích = 1168785156
     . Chu vi = 136750
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test17: 2.00
+AC_2‣TABLE‣Test17: 2.00
 Thời gian ≈ 0.051098600 giây
 Kiểm tra kết quả:
   * n = 279014230
@@ -196,7 +196,7 @@ Kiểm tra kết quả:
     . Diện tích = 279023616
     . Chu vi = 66816
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test18: 2.00
+AC_2‣TABLE‣Test18: 2.00
 Thời gian ≈ 0.052248400 giây
 Kiểm tra kết quả:
   * n = 574308047
@@ -207,7 +207,7 @@ Kiểm tra kết quả:
     . Diện tích = 574321225
     . Chu vi = 95860
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test19: 2.00
+AC_2‣TABLE‣Test19: 2.00
 Thời gian ≈ 0.052650500 giây
 Kiểm tra kết quả:
   * n = 1213640574
@@ -218,7 +218,7 @@ Kiểm tra kết quả:
     . Diện tích = 1213651406
     . Chu vi = 139350
 Kết quả đúng!
-glyknA2ymZXI1G6K‣TABLE‣Test20: 2.00
+AC_2‣TABLE‣Test20: 2.00
 Thời gian ≈ 0.053546100 giây
 Kiểm tra kết quả:
   * n = 1634501803

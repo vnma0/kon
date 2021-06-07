@@ -1,32 +1,32 @@
-﻿1DdRBHtT8eawu3jh‣LARES: 30.00
+﻿AC‣LARES: 30.00
 LARES.cpp
 "C:\Program Files (x86)\Themis\gcc\bin\g++.exe" -std=c++14 "LARES.cpp" -pipe -O2 -s -static -lm -x c++ -o"LARES.exe" -Wl,--stack,66060288|@WorkDir=C:\ProgramData\ThemisWorkSpace\WaitRoom24941\
 Dịch thành công.
 
-1DdRBHtT8eawu3jh‣LARES‣Test01: 3.00
+AC‣LARES‣Test01: 3.00
 Thời gian ≈ 0.047357600 giây
 Kết quả khớp đáp án!
-1DdRBHtT8eawu3jh‣LARES‣Test02: 4.00
+AC‣LARES‣Test02: 4.00
 Thời gian ≈ 0.052085200 giây
 Kết quả khớp đáp án!
-1DdRBHtT8eawu3jh‣LARES‣Test03: 5.00
+AC‣LARES‣Test03: 5.00
 Thời gian ≈ 0.049338500 giây
 Kết quả khớp đáp án!
-1DdRBHtT8eawu3jh‣LARES‣Test04: 3.00
+AC‣LARES‣Test04: 3.00
 Thời gian ≈ 0.052055600 giây
 Kết quả khớp đáp án!
-1DdRBHtT8eawu3jh‣LARES‣Test05: 3.00
+AC‣LARES‣Test05: 3.00
 Thời gian ≈ 0.045264700 giây
 Kết quả khớp đáp án!
-1DdRBHtT8eawu3jh‣LARES‣Test06: 3.00
+AC‣LARES‣Test06: 3.00
 Thời gian ≈ 0.045912300 giây
 Kết quả khớp đáp án!
-1DdRBHtT8eawu3jh‣LARES‣Test07: 3.00
+AC‣LARES‣Test07: 3.00
 Thời gian ≈ 0.057126800 giây
 Kết quả khớp đáp án!
-1DdRBHtT8eawu3jh‣LARES‣Test08: 3.00
+AC‣LARES‣Test08: 3.00
 Thời gian ≈ 0.044566100 giây
 Kết quả khớp đáp án!
-1DdRBHtT8eawu3jh‣LARES‣Test09: 3.00
+AC‣LARES‣Test09: 3.00
 Thời gian ≈ 0.049736600 giây
 Kết quả khớp đáp án!
